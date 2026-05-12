@@ -922,8 +922,13 @@
                     <input type="text" id="sellItemCategory" required>
                 </div>
                 <div class="form-group">
+                    <label>Photo URL</label>
+                    <input type="url" id="sellItemPhoto" placeholder="https://example.com/photo.jpg">
+                    <small style="color: #666; display: block; margin-top: 6px;">Optional: paste a photo link. If left empty, a default placeholder is used.</small>
+                </div>
+                <div class="form-group">
                     <label>Emoji</label>
-                    <input type="text" id="sellItemEmoji" placeholder="e.g. 📦" required>
+                    <input type="text" id="sellItemEmoji" placeholder="e.g. 📦">
                 </div>
                 <div class="form-group">
                     <label>Description</label>
@@ -1380,15 +1385,23 @@
         function addSellItem(event) {
             event.preventDefault();
 
-            const newItem = {
-                id: communityItems.length + 1001,
-                name: document.getElementById('sellItemName').value,
-                price: parseFloat(document.getElementById('sellItemPrice').value),
-                category: document.getElementById('sellItemCategory').value,
-                emoji: document.getElementById('sellItemEmoji').value,
-                description: document.getElementById('sellItemDescription').value,
-                seller: 'You'
-            };
+const name = document.getElementById('sellItemName').value;
+                const category = document.getElementById('sellItemCategory').value;
+                const emoji = document.getElementById('sellItemEmoji').value;
+                const photoUrl = document.getElementById('sellItemPhoto').value.trim();
+                const descriptionInput = document.getElementById('sellItemDescription').value.trim();
+                const description = descriptionInput || generateSellDescription(name, category);
+
+                const newItem = {
+                    id: communityItems.length + 1001,
+                    name,
+                    price: parseFloat(document.getElementById('sellItemPrice').value),
+                    category,
+                    emoji,
+                    photoUrl,
+                    description,
+                    seller: 'You'
+                };
 
             communityItems.push(newItem);
             loadCommunityItems();
@@ -1410,7 +1423,7 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <div class="product-image">${item.emoji}</div>
+                    <div class="product-image">${item.photoUrl ? `<img src="${item.photoUrl}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;">` : item.emoji || '📦'}</div>
                     <div class="product-info">
                         <div class="product-name">${item.name}</div>
                         <div class="product-price">$${item.price.toFixed(2)}</div>
@@ -1447,7 +1460,9 @@
             currentProductModal = item;
             const body = document.getElementById('productModalBody');
             body.innerHTML = `
-                <div style="text-align: center; font-size: 80px; margin-bottom: 20px;">${item.emoji}</div>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    ${item.photoUrl ? `<img src="${item.photoUrl}" alt="${item.name}" style="width: 100%; max-height: 260px; object-fit: cover; border-radius: 15px;">` : `<div style="font-size: 80px;">${item.emoji || '📦'}</div>`}
+                </div>
                 <h2 style="color: #1a472a; margin-bottom: 10px;">${item.name}</h2>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
                     <div>
@@ -1478,6 +1493,20 @@
             if (!currentUser) {
                 document.getElementById('loginModal').classList.add('active');
             }
+        }
+
+        function generateSellDescription(name, category) {
+            const useCases = {
+                'Accessories': 'Perfect as a stylish everyday accessory that adds convenience to your routine.',
+                'Sports': 'Ideal for active people and outdoor adventures, built for performance.',
+                'Electronics': 'Great for staying connected, boosting productivity, and enjoying media.',
+                'Home & Office': 'A smart choice for home comfort and office productivity.',
+                'Photography': 'Designed to help you capture clear, memorable photos and videos.',
+                'Storage': 'A useful item for keeping your devices and data organized and safe.'
+            };
+            const descriptionBase = `This ${category.toLowerCase()} item is a great choice for anyone looking for ${name.toLowerCase()} quality and value.`;
+            const extra = useCases[category] || 'A reliable product with practical use in everyday life.';
+            return `${descriptionBase} ${extra}`;
         }
 
         function updateHeaderUser() {
