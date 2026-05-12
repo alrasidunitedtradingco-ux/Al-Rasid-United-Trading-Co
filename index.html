@@ -592,9 +592,9 @@
                     <i class="fas fa-users"></i>
                     <span>Listings</span>
                 </button>
-                <button onclick="showAccountModal()">
+                <button id="accountButton" onclick="showAccountModal()">
                     <i class="fas fa-user"></i>
-                    <span>Account</span>
+                    <span id="accountButtonText">Account</span>
                 </button>
                 <button onclick="toggleCart()">
                     <i class="fas fa-shopping-cart"></i>
@@ -803,11 +803,12 @@
                 <div style="text-align: center; padding: 20px;">
                     <i class="fas fa-user-circle" style="font-size: 60px; color: #1a472a; margin-bottom: 20px;"></i>
                     <h3 id="accountName" style="color: #1a472a; margin-bottom: 10px;">Guest User</h3>
+                    <p id="accountEmail" style="color: #666; margin-bottom: 10px;">Not signed in</p>
                     <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; text-align: left;">
-                        <p><strong>Status:</strong> <span style="color: #4caf50;">Active</span></p>
+                        <p><strong>Status:</strong> <span id="accountStatus" style="color: #4caf50;">Active</span></p>
                         <p><strong>Total Orders:</strong> <span id="totalOrders">0</span></p>
                         <p><strong>Items Listed:</strong> <span id="itemsListed">0</span></p>
-                        <p><strong>Account Created:</strong> May 12, 2026</p>
+                        <p><strong>Account Created:</strong> <span id="accountCreated">May 12, 2026</span></p>
                     </div>
                 </div>
             </div>
@@ -815,6 +816,22 @@
                 <button class="btn btn-secondary" style="flex: 1;" onclick="closeAccountModal()">Close</button>
                 <button class="btn btn-primary" style="flex: 1;" onclick="logoutAccount()">Logout</button>
             </div>
+        </div>
+    </div>
+
+    <div class="modal" id="loginModal">
+        <div class="modal-content" style="max-width: 420px;">
+            <div class="modal-header">
+                <span>Sign in to continue</span>
+            </div>
+            <p style="margin-bottom: 20px; color: #666;">Please sign in with Google or Apple before using the store.</p>
+            <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="signInWithProvider('Google')">
+                <i class="fab fa-google"></i> Sign in with Google
+            </button>
+            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;" onclick="signInWithProvider('Apple')">
+                <i class="fab fa-apple"></i> Sign in with Apple
+            </button>
+            <p style="font-size: 12px; color: #999; line-height: 1.5;">This page currently uses a simple sign-in flow. Full OAuth setup requires a backend or Firebase configuration.</p>
         </div>
     </div>
 
@@ -846,11 +863,15 @@
 
         let cart = [];
         let currentProductModal = null;
+        let currentUser = null;
 
         // INITIALIZE
         window.addEventListener('load', function() {
             loadProducts();
             loadCategories();
+            loadCommunityItems();
+            loadLoggedInUser();
+            requireSignIn();
         });
 
         // LOAD PRODUCTS
@@ -1225,11 +1246,63 @@
             document.getElementById('communitySection').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // ACCOUNT FUNCTIONS
+        function loadLoggedInUser() {
+            const savedUser = localStorage.getItem('currentUser');
+            currentUser = savedUser ? JSON.parse(savedUser) : null;
+            updateHeaderUser();
+        }
+
+        function requireSignIn() {
+            if (!currentUser) {
+                document.getElementById('loginModal').classList.add('active');
+            }
+        }
+
+        function updateHeaderUser() {
+            const buttonText = document.getElementById('accountButtonText');
+            if (currentUser) {
+                buttonText.textContent = currentUser.name || 'Account';
+            } else {
+                buttonText.textContent = 'Account';
+            }
+        }
+
         function showAccountModal() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            document.getElementById('accountName').textContent = currentUser.name;
+            document.getElementById('accountEmail').textContent = currentUser.email || 'No email provided';
+            document.getElementById('accountStatus').textContent = 'Signed in with ' + currentUser.provider;
             document.getElementById('totalOrders').textContent = cart.length > 0 ? Math.floor(Math.random() * 10) + 5 : Math.floor(Math.random() * 5);
             document.getElementById('itemsListed').textContent = communityItems.filter(i => i.seller === 'You').length;
+            document.getElementById('accountCreated').textContent = currentUser.createdAt || 'May 12, 2026';
             document.getElementById('accountModal').classList.add('active');
+        }
+
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+
+        function signInWithProvider(provider) {
+            const email = prompt('Enter your ' + provider + ' email to sign in.');
+            if (!email) return;
+            const name = email.split('@')[0].replace(/[._]/g, ' ');
+            currentUser = {
+                name: name.charAt(0).toUpperCase() + name.slice(1),
+                email,
+                provider,
+                createdAt: new Date().toLocaleDateString()
+            };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateHeaderUser();
+            closeLoginModal();
+            showNotification('Signed in with ' + provider + '!');
         }
 
         function closeAccountModal() {
@@ -1237,11 +1310,13 @@
         }
 
         function logoutAccount() {
-            showNotification('Logged out successfully!');
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            updateHeaderUser();
             closeAccountModal();
+            showLoginModal();
+            showNotification('Logged out successfully!');
         }
-
-        loadCommunityItems();
 
         // ADMIN FUNCTIONS
         function showAdminSection(section) {
