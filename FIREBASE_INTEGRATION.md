@@ -61,20 +61,29 @@ ORDER STILL THERE ✅
 5. Select region (choose closest to you)
 6. Click "Enable"
 
-### Phase 3: Get Firebase Config
+### Phase 3: Enable Authentication
+1. In Firebase console
+2. Click "Authentication" in left sidebar
+3. Click "Get started"
+4. Go to "Sign-in method" tab
+5. Enable "Google" provider
+6. Add your domain to authorized domains (for local development: localhost)
+7. Copy the config from "Project settings" → "General" → "Your apps" → "Web app"
+
+### Phase 4: Get Firebase Config
 1. Click gear icon → Project Settings
 2. Scroll down to "Your apps"
-3. Click "Add app" → "Web"
+3. Click "Add app" → "Web" (if not already added)
 4. Copy the config code
-5. Paste into your index.html
+5. Paste into your index.html (replace the placeholder config)
 
-### Phase 4: Code Integration
+### Phase 5: Code Integration
 Add this to your `index.html`:
 
 ```html
 <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
 <script>
   // Your Firebase config
@@ -89,28 +98,45 @@ Add this to your `index.html`:
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
+  const auth = firebase.auth();
 
-  // Save order to Firebase
-  function saveOrder(orderData) {
-    db.ref('orders').push(orderData);
+  // Authentication state observer
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in
+      console.log('User signed in:', user.displayName);
+    } else {
+      // User is signed out
+      console.log('User signed out');
+    }
+  });
+
+  // Google Sign-in function
+  function signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
   }
 
-  // Load orders from Firebase
-  function loadOrders() {
-    db.ref('orders').on('value', (snapshot) => {
-      const orders = snapshot.val() || {};
-      console.log('Orders loaded from Firebase:', orders);
-    });
+  // Sign out function
+  function signOut() {
+    auth.signOut();
   }
 </script>
 ```
 
-### Phase 5: Test
+### Phase 6: Test Authentication
 1. Deploy updated website
-2. Place test order
-3. Refresh page
-4. Order still there ✅
+2. Click "Sign in with Google"
+3. Complete Google OAuth flow
+4. User should be signed in
+5. Refresh page - user stays signed in
+
+### Phase 7: Test Database
+1. Place test order
+2. Check Firebase console → Firestore Database
+3. Order should appear in database
+4. Refresh page
+5. Order still there ✅
 
 ---
 
