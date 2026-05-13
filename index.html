@@ -1133,10 +1133,11 @@
         }
 
         // FILTER BY CATEGORY
-        function filterByCategory(category) {
+
+        function filterByCategory(category, activeElement) {
             const links = document.querySelectorAll('.categories a');
             links.forEach(link => link.classList.remove('active'));
-            event.target.classList.add('active');
+            if (activeElement && activeElement.classList) activeElement.classList.add('active');
             loadProducts(category);
         }
 
@@ -1234,12 +1235,7 @@
             }
         }
 
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            if (product) {
-                addItemToCart(product);
-            }
-        }
+        /* removed duplicate addToCart(productId) */
 
         function addItemToCart(product) {
             const cartItem = cart.find(item => item.id === product.id);
