@@ -1532,12 +1532,15 @@ const name = document.getElementById('sellItemName').value;
         }
 
         // ADMIN FUNCTIONS
+
         function showAdminSection(section) {
+            // Fix: don't rely on global `event` (can break when event.target isn't an Element)
             const items = document.querySelectorAll('.admin-menu li');
             items.forEach(item => item.classList.remove('active'));
-            if (event && event.target) {
-                event.target.closest('li').classList.add('active');
-            }
+
+            // Highlight the menu item by matching onclick argument
+            const activeLi = document.querySelector(`.admin-menu li[onclick*="showAdminSection('${section}')"]`);
+            if (activeLi) activeLi.classList.add('active');
 
             const sections = document.querySelectorAll('.admin-section');
             sections.forEach(sec => sec.classList.remove('active'));
