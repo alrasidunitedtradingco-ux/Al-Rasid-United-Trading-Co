@@ -971,22 +971,6 @@
         </div>
     </div>
 
-    <div class="modal" id="loginModal">
-        <div class="modal-content" style="max-width: 420px;">
-            <div class="modal-header">
-                <span>Sign-in Disabled</span>
-            </div>
-            <p style="margin-bottom: 20px; color: #666;">Authentication is currently disabled. You can browse, buy, and sell items without signing in.</p>
-            <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="showNotification('Sign-in is disabled. Please continue as a guest.')">
-                <i class="fab fa-google"></i> Google sign-in disabled
-            </button>
-            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;" onclick="showNotification('Sign-in is disabled. Please continue as a guest.')">
-                <i class="fab fa-apple"></i> Apple sign-in disabled
-            </button>
-            <p style="font-size: 12px; color: #999; line-height: 1.5;">The site now works without login. Use the store normally as a guest.</p>
-        </div>
-    </div>
-
     <button class="assistant-button" onclick="toggleAssistant()" title="Open Copilot">
         <i class="fas fa-robot"></i>
     </button>
@@ -1533,18 +1517,6 @@ const name = document.getElementById('sellItemName').value;
             document.getElementById('itemsListed').textContent = communityItems.filter(i => i.seller === 'You').length;
             document.getElementById('accountCreated').textContent = createdAt;
             document.getElementById('accountModal').classList.add('active');
-        }
-
-        function showLoginModal() {
-            document.getElementById('loginModal').classList.add('active');
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.remove('active');
-        }
-
-        function signInWithProvider(provider) {
-            showNotification('Sign-in has been disabled. You can still browse and use the store without signing in.');
         }
 
         function closeAccountModal() {
