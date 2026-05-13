@@ -974,16 +974,16 @@
     <div class="modal" id="loginModal">
         <div class="modal-content" style="max-width: 420px;">
             <div class="modal-header">
-                <span>Sign in to continue</span>
+                <span>Sign-in Disabled</span>
             </div>
-            <p style="margin-bottom: 20px; color: #666;">Please sign in with Google or Apple before using the store.</p>
-            <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="signInWithProvider('Google')">
-                <i class="fab fa-google"></i> Sign in with Google
+            <p style="margin-bottom: 20px; color: #666;">Authentication is currently disabled. You can browse, buy, and sell items without signing in.</p>
+            <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="showNotification('Sign-in is disabled. Please continue as a guest.')">
+                <i class="fab fa-google"></i> Google sign-in disabled
             </button>
-            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;" onclick="signInWithProvider('Apple')">
-                <i class="fab fa-apple"></i> Sign in with Apple
+            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;" onclick="showNotification('Sign-in is disabled. Please continue as a guest.')">
+                <i class="fab fa-apple"></i> Apple sign-in disabled
             </button>
-            <p style="font-size: 12px; color: #999; line-height: 1.5;">Sign in with your Google account to access the store. Make sure to configure Firebase in the code.</p>
+            <p style="font-size: 12px; color: #999; line-height: 1.5;">The site now works without login. Use the store normally as a guest.</p>
         </div>
     </div>
 
@@ -1007,40 +1007,8 @@
 
     <!-- SCRIPTS -->
     <script>
-        // Firebase Configuration
-        // TODO: Replace with your actual Firebase config from Firebase Console
-        const firebaseConfig = {
-            apiKey: "your-api-key-here",
-            authDomain: "your-project.firebaseapp.com",
-            projectId: "your-project-id",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "your-app-id"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        // Authentication state observer
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                currentUser = {
-                    name: user.displayName,
-                    email: user.email,
-                    provider: 'Google',
-                    uid: user.uid,
-                    photoURL: user.photoURL,
-                    createdAt: new Date().toLocaleDateString()
-                };
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                updateHeaderUser();
-            } else {
-                currentUser = null;
-                localStorage.removeItem('currentUser');
-                updateHeaderUser();
-            }
-        });
+        // Firebase authentication is disabled for this version of the store.
+        // Guests can browse, add items, and place orders without signing in.
 
         // DATA
         let products = [
@@ -1526,9 +1494,7 @@ const name = document.getElementById('sellItemName').value;
         }
 
         function requireSignIn() {
-            if (!currentUser) {
-                document.getElementById('loginModal').classList.add('active');
-            }
+            // Sign-in has been disabled. Guests can browse and use the store without logging in.
         }
 
         function generateSellDescription(name, category) {
@@ -1555,16 +1521,17 @@ const name = document.getElementById('sellItemName').value;
         }
 
         function showAccountModal() {
-            if (!currentUser) {
-                showLoginModal();
-                return;
-            }
-            document.getElementById('accountName').textContent = currentUser.name;
-            document.getElementById('accountEmail').textContent = currentUser.email || 'No email provided';
-            document.getElementById('accountStatus').textContent = 'Signed in with ' + currentUser.provider;
+            const name = currentUser?.name || 'Guest User';
+            const email = currentUser?.email || 'Browsing as guest';
+            const status = currentUser ? 'Signed in with ' + currentUser.provider : 'Guest';
+            const createdAt = currentUser?.createdAt || 'N/A';
+
+            document.getElementById('accountName').textContent = name;
+            document.getElementById('accountEmail').textContent = email;
+            document.getElementById('accountStatus').textContent = status;
             document.getElementById('totalOrders').textContent = cart.length > 0 ? Math.floor(Math.random() * 10) + 5 : Math.floor(Math.random() * 5);
             document.getElementById('itemsListed').textContent = communityItems.filter(i => i.seller === 'You').length;
-            document.getElementById('accountCreated').textContent = currentUser.createdAt || 'May 12, 2026';
+            document.getElementById('accountCreated').textContent = createdAt;
             document.getElementById('accountModal').classList.add('active');
         }
 
@@ -1577,32 +1544,7 @@ const name = document.getElementById('sellItemName').value;
         }
 
         function signInWithProvider(provider) {
-            if (provider === 'Google') {
-                const googleProvider = new firebase.auth.GoogleAuthProvider();
-                auth.signInWithPopup(googleProvider)
-                    .then((result) => {
-                        const user = result.user;
-                        currentUser = {
-                            name: user.displayName,
-                            email: user.email,
-                            provider: 'Google',
-                            uid: user.uid,
-                            photoURL: user.photoURL,
-                            createdAt: new Date().toLocaleDateString()
-                        };
-                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                        updateHeaderUser();
-                        closeLoginModal();
-                        showNotification('Signed in with Google!');
-                    })
-                    .catch((error) => {
-                        console.error('Sign-in error:', error);
-                        showNotification('Sign-in failed. Please check your Firebase configuration.');
-                    });
-            } else if (provider === 'Apple') {
-                // Apple sign-in would require additional setup
-                showNotification('Apple sign-in not yet implemented. Use Google for now.');
-            }
+            showNotification('Sign-in has been disabled. You can still browse and use the store without signing in.');
         }
 
         function closeAccountModal() {
@@ -1610,17 +1552,11 @@ const name = document.getElementById('sellItemName').value;
         }
 
         function logoutAccount() {
-            auth.signOut().then(() => {
-                currentUser = null;
-                localStorage.removeItem('currentUser');
-                updateHeaderUser();
-                closeAccountModal();
-                showLoginModal();
-                showNotification('Logged out successfully!');
-            }).catch((error) => {
-                console.error('Sign out error:', error);
-                showNotification('Error signing out.');
-            });
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateHeaderUser();
+            closeAccountModal();
+            showNotification('Now browsing as guest.');
         }
 
         // ADMIN FUNCTIONS
