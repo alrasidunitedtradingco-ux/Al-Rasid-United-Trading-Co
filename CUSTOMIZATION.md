@@ -274,6 +274,14 @@ color: #DC143C;             /* Red Price */
 
 ---
 
+## 11. Multi-Language Support
+
+The store uses the **Google Translate Widget** to support multi-language browsing.
+
+To change the default page language (currently English), update the `pageLanguage` parameter in the `googleTranslateElementInit` function inside `index.html`.
+
+---
+
 ## Troubleshooting
 
 ### Changes Not Showing?

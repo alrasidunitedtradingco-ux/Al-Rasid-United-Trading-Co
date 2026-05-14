@@ -7,6 +7,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <!-- Firebase SDK -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     
@@ -154,6 +160,34 @@
             border: none;
             font-size: 12px;
             transition: all 0.3s;
+        }
+
+        /* GOOGLE TRANSLATE STYLING */
+        #google_translate_element {
+            margin: 0 10px;
+        }
+        .goog-te-gadget {
+            font-family: inherit !important;
+        }
+        .goog-te-gadget-simple {
+            background-color: rgba(255,255,255,0.1) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+            padding: 4px 8px !important;
+            border-radius: 5px !important;
+            cursor: pointer !important;
+        }
+        .goog-te-gadget-simple span {
+            color: white !important;
+            vertical-align: middle !important;
+        }
+        .goog-te-gadget-icon {
+            display: none !important;
+        }
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        body {
+            top: 0px !important;
         }
 
         .header-links a:hover, .header-links button:hover {
@@ -775,6 +809,7 @@
                 <input type="text" id="searchInput" placeholder="Search products...">
                 <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
             </div>
+            <div id="google_translate_element"></div>
             <div class="header-links">
                 <button onclick="toggleAdmin()">
                     <i class="fas fa-cog"></i>
