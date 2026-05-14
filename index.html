@@ -7,14 +7,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <!-- Firebase SDK -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     
     <style>
         /* AUTH OVERLAY */
@@ -44,24 +36,43 @@
             width: 90%;
         }
 
-        .google-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+        .auth-form input {
             width: 100%;
             padding: 12px;
-            background: white;
+            margin-top: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: background 0.3s;
+            font-size: 14px;
         }
 
-        .google-btn:hover {
-            background: #f5f5f5;
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .auth-toggle {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .account-order-item {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: #333;
         }
 
         :root {
@@ -786,15 +797,19 @@
 </head>
 <body>
     <!-- AUTHENTICATION OVERLAY -->
-    <div id="authOverlay">
+    <div id="authOverlay" style="display: flex;">
         <div class="auth-card">
             <i class="fas fa-store" style="font-size: 50px; color: var(--primary-color); margin-bottom: 20px;"></i>
-            <h2 style="margin-bottom: 10px;">Welcome Back</h2>
-            <p style="color: #666; margin-bottom: 20px;">Please sign in to access Al Rasid Trading store.</p>
-            <button class="google-btn" onclick="signInWithGoogle()">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="20">
-                Sign in with Google
-            </button>
+            <h2 id="authTitle" style="margin-bottom: 10px;">Welcome Back</h2>
+            <p id="authSubtitle" style="color: #666; margin-bottom: 20px;">Please sign in to access Al Rasid Trading store.</p>
+            
+            <form class="auth-form" id="authForm" onsubmit="handleAuth(event)">
+                <input type="text" id="authUsername" placeholder="Username" required>
+                <input type="password" id="authPassword" placeholder="Password" required>
+                <button type="submit" class="auth-btn" id="authSubmitBtn">Sign In</button>
+            </form>
+            
+            <div class="auth-toggle" id="authToggle" onclick="toggleAuthMode()">Don't have an account? Register</div>
         </div>
     </div>
 
@@ -811,11 +826,11 @@
             </div>
             <div id="google_translate_element"></div>
             <div class="header-links">
-                <button onclick="toggleAdmin()">
+                <button onclick="toggleAdmin()" id="adminNavBtn" class="hidden">
                     <i class="fas fa-cog"></i>
                     <span>Admin</span>
                 </button>
-                <button onclick="showSellItemModal()">
+                <button onclick="showSellItemModal()" id="sellNavBtn" class="hidden">
                     <i class="fas fa-tags"></i>
                     <span>Sell Item</span>
                 </button>
@@ -1062,13 +1077,20 @@
                     <h3 id="accountName" style="color: #1a472a; margin-bottom: 10px;">Guest User</h3>
                     <p id="accountEmail" style="color: #666; margin-bottom: 10px;">Not signed in</p>
                     <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; text-align: left;">
-                        <p><strong>Status:</strong> <span id="accountStatus" style="color: #4caf50;">Active</span></p>
-                        <p><strong>Total Orders:</strong> <span id="totalOrders">0</span></p>
-                        <p><strong>Items Listed:</strong> <span id="itemsListed">0</span></p>
-                        <p><strong>Account Created:</strong> <span id="accountCreated">May 12, 2026</span></p>
+                        <p style="margin-bottom: 8px;"><strong>Status:</strong> <span id="accountStatus" style="color: #4caf50;">Active</span></p>
+                        <p style="margin-bottom: 8px;"><strong>Total Orders:</strong> <span id="totalOrders">0</span></p>
+                        <p style="margin-bottom: 8px;"><strong>Items Listed:</strong> <span id="itemsListed">0</span></p>
+                        <p style="margin-bottom: 8px;"><strong>Account Created:</strong> <span id="accountCreated">May 12, 2026</span></p>
                     </div>
                 </div>
+                
+                <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--primary-color); text-align: center;">My Order History</h4>
+                <div id="userOrderHistory" style="max-height: 250px; overflow-y: auto; padding: 10px; border: 1px solid #eee; border-radius: 8px;">
+                    <!-- User's orders will be loaded here -->
+                    <p style="text-align: center; color: #999;">No orders found.</p>
+                </div>
             </div>
+
             <div style="display: flex; gap: 10px; margin-top: 20px;">
                 <button class="btn btn-secondary" style="flex: 1;" onclick="closeAccountModal()">Close</button>
                 <button class="btn btn-primary" style="flex: 1;" onclick="logoutAccount()">Logout</button>
@@ -1096,58 +1118,81 @@
 
     <!-- SCRIPTS -->
     <script>
-        // FIREBASE CONFIGURATION
-        // STEP: Replace the strings below with the values from your Firebase Project Settings
-        const firebaseConfig = {
-            apiKey: "AIzaSy...", // Paste your actual API Key here
-            authDomain: "your-project-id.firebaseapp.com",
-            projectId: "your-project-id",
-            storageBucket: "your-project-id.appspot.com",
-            messagingSenderId: "1234567890",
-            appId: "1:1234567890:web:abcdef"
-        };
+        const API_URL = 'http://localhost:3000/api';
+        let authMode = 'login';
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        function toggleAuthMode() {
+            authMode = authMode === 'login' ? 'register' : 'login';
+            document.getElementById('authTitle').textContent = authMode === 'login' ? 'Welcome Back' : 'Create Account';
+            document.getElementById('authSubtitle').textContent = authMode === 'login' ? 'Please sign in to access Al Rasid Trading store.' : 'Join us to start shopping.';
+            document.getElementById('authSubmitBtn').textContent = authMode === 'login' ? 'Sign In' : 'Register';
+            document.getElementById('authToggle').textContent = authMode === 'login' ? "Don't have an account? Register" : "Already have an account? Sign In";
+        }
 
-        // Auth State Listener
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                currentUser = {
-                    name: user.displayName,
-                    email: user.email,
-                    photo: user.photoURL,
-                    provider: 'Google',
-                    createdAt: user.metadata.creationTime
-                };
-                document.getElementById('authOverlay').style.display = 'none';
-                updateHeaderUser();
+        async function handleAuth(event) {
+            event.preventDefault();
+            const username = document.getElementById('authUsername').value;
+            const password = document.getElementById('authPassword').value;
+
+            try {
+                const response = await fetch(`${API_URL}/${authMode}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (authMode === 'login') {
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        initApp(data.user);
+                    } else {
+                        alert('Registration successful! Please login.');
+                        toggleAuthMode();
+                    }
+                } else {
+                    alert(data.error || 'Authentication failed');
+                }
+            } catch (err) {
+                alert('Could not connect to server. Make sure server.js is running.');
+            }
+        }
+
+        function initApp(user) {
+            currentUser = user;
+            document.getElementById('authOverlay').style.display = 'none';
+            updateHeaderUser();
+            loadProducts();
+            loadOrders();
+            
+            // Role-based visibility
+            if (user.role === 'admin') {
+                document.getElementById('adminNavBtn').classList.remove('hidden');
+                document.getElementById('sellNavBtn').classList.remove('hidden');
             } else {
-                document.getElementById('authOverlay').style.display = 'flex';
-                currentUser = null;
-                updateHeaderUser();
+                document.getElementById('adminNavBtn').classList.add('hidden');
+                document.getElementById('sellNavBtn').classList.add('hidden');
+            }
+        }
+
+        // Auto login on load
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            if (token && user) {
+                initApp(JSON.parse(user));
             }
         });
 
-        function signInWithGoogle() {
-            if (window.location.protocol === 'file:') {
-                alert("ERROR: Google Sign-In will not work if you open the HTML file directly (file://).\n\nYou MUST use a local server (like Live Server in VS Code) or deploy the site to Netlify first.");
-                return;
-            }
-
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider).catch(error => {
-                console.error("Firebase Auth Error:", error.code, error.message);
-                alert("Sign in failed: " + error.message + "\n\nTip: Check if your domain is whitelisted in Firebase Console > Authentication > Settings.");
-            });
+        function getAuthHeader() {
+            return { 'Authorization': `Bearer ${localStorage.getItem('token')}` };
         }
 
         function logoutAccount() {
-            auth.signOut().then(() => {
-                closeAccountModal();
-                showNotification('Signed out successfully.');
-            });
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            location.reload();
         }
 
         // DATA
@@ -1158,46 +1203,35 @@
         let currentProductModal = null;
         let currentUser = null;
 
-        // INITIALIZE
-        window.addEventListener('load', function() {
-            loadProducts();
-            loadCategories();
-            loadCommunityItems();
-            loadOrders();
-            showAdminSection('dashboard');
-        });
-
         // LOAD PRODUCTS
-        function loadProducts(filter = 'all') {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-            
-            let filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
-            
-            filteredProducts.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <div class="product-image" onclick="showProductModal(${product.id})">${product.emoji}</div>
-                    <div class="product-info">
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-price">$${product.price.toFixed(2)}</div>
-                        <div class="product-rating">
-                            ${'⭐'.repeat(Math.round(product.rating))} ${product.rating} (${product.reviews})
+        async function loadProducts(filter = 'all') {
+            try {
+                const response = await fetch(`${API_URL}/items`);
+                products = await response.json();
+                
+                const grid = document.getElementById('productsGrid');
+                grid.innerHTML = '';
+                
+                let filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
+                
+                filteredProducts.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div class="product-image" onclick="showProductModal('${product._id}')">${product.emoji}</div>
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            <div class="product-stock">Stock: ${product.stock}</div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary" onclick="addToCart('${product._id}')">Add to Cart</button>
+                            </div>
                         </div>
-                        <div class="product-stock">
-                            ${product.stock > 0 ? `<span style="color: #4caf50;">✓ In Stock</span>` : '<span style="color: #f44336;">Out of Stock</span>'}
-                        </div>
-                        <div class="product-actions">
-                            <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
-                            <button class="btn btn-secondary" onclick="showProductModal(${product.id})">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+                    `;
+                    grid.appendChild(card);
+                });
+                loadCategories();
+            } catch (err) { console.error(err); }
         }
 
         // LOAD CATEGORIES
@@ -1246,16 +1280,16 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <div class="product-image" onclick="showProductModal(${product.id})">${product.emoji}</div>
+                    <div class="product-image" onclick="showProductModal('${product._id}')">${product.emoji}</div>
                     <div class="product-info">
                         <div class="product-name">${product.name}</div>
                         <div class="product-price">$${product.price.toFixed(2)}</div>
                         <div class="product-rating">
-                            ${'⭐'.repeat(Math.round(product.rating))} ${product.rating} (${product.reviews})
+                            ⭐ 4.5
                         </div>
                         <div class="product-actions">
-                            <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
-                            <button class="btn btn-secondary" onclick="showProductModal(${product.id})">
+                            <button class="btn btn-primary" onclick="addToCart('${product._id}')">Add to Cart</button>
+                            <button class="btn btn-secondary" onclick="showProductModal('${product._id}')">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -1267,7 +1301,7 @@
 
         // PRODUCT MODAL
         function showProductModal(productId) {
-            const product = products.find(p => p.id === productId);
+            const product = products.find(p => p._id === productId);
             currentProductModal = product;
             
             const body = document.getElementById('productModalBody');
@@ -1278,10 +1312,6 @@
                     <div>
                         <strong>Price:</strong><br>
                         <span style="font-size: 24px; color: #B12704; font-weight: bold;">$${product.price.toFixed(2)}</span>
-                    </div>
-                    <div>
-                        <strong>Rating:</strong><br>
-                        <span>${'⭐'.repeat(Math.round(product.rating))} ${product.rating}</span>
                     </div>
                 </div>
                 <p style="color: #666; line-height: 1.6; margin-bottom: 15px;">${product.description}</p>
@@ -1297,8 +1327,8 @@
 
         // CART MANAGEMENT
         function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const cartItem = cart.find(item => item.id === productId);
+            const product = products.find(p => p._id === productId);
+            const cartItem = cart.find(item => item._id === productId);
             
             if (cartItem) {
                 cartItem.quantity++;
@@ -1312,7 +1342,7 @@
 
         function addToCartFromModal() {
             if (currentProductModal) {
-                const item = products.find(p => p.id === currentProductModal.id) || communityItems.find(p => p.id === currentProductModal.id);
+                const item = products.find(p => p._id === currentProductModal._id);
                 if (item) {
                     addItemToCart(item);
                 }
@@ -1323,7 +1353,7 @@
         /* removed duplicate addToCart(productId) */
 
         function addItemToCart(product) {
-            const cartItem = cart.find(item => item.id === product.id);
+            const cartItem = cart.find(item => item._id === product._id);
             if (cartItem) {
                 cartItem.quantity++;
             } else {
@@ -1411,7 +1441,7 @@
             document.getElementById('checkoutModal').classList.remove('active');
         }
 
-        function completeCheckout(event) {
+        async function completeCheckout(event) {
             event.preventDefault();
             
             const name = document.getElementById('customerName').value;
@@ -1421,39 +1451,34 @@
             const dropOffLocation = document.getElementById('dropOffLocation').value;
             const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
             
-            const order = {
-                id: Date.now(),
-                name,
-                email,
-                phone,
-                address,
-                dropOffLocation,
-                items: cart.map(item => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity })),
-                total,
-                placedAt: new Date().toLocaleString(),
-                mapLink: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(dropOffLocation)
+            const orderData = {
+                items: cart.map(item => ({ productId: item._id, name: item.name, quantity: item.quantity, price: item.price })),
+                total: parseFloat(total)
             };
 
-            orders.unshift(order);
-            saveOrders();
-            renderOrders();
-            updateDashboard();
+            try {
+                const response = await fetch(`${API_URL}/orders`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        ...getAuthHeader()
+                    },
+                    body: JSON.stringify(orderData)
+                });
 
-            showNotification('✓ Order placed successfully! We will contact you soon.');
-            
-            cart = [];
-            updateCart();
-            closeCheckoutModal();
-            document.querySelector('form[onsubmit="completeCheckout(event)"]').reset();
+                if (response.ok) {
+                    showNotification('✓ Order placed successfully!');
+                    cart = [];
+                    updateCart();
+                    closeCheckoutModal();
+                    loadOrders();
+                }
+            } catch (err) { alert('Order failed'); }
         }
 
-        function saveOrders() {
-            localStorage.setItem('orders', JSON.stringify(orders));
-        }
-
-        function loadOrders() {
-            const savedOrders = localStorage.getItem('orders');
-            orders = savedOrders ? JSON.parse(savedOrders) : [];
+        async function loadOrders() {
+            const response = await fetch(`${API_URL}/orders`, { headers: getAuthHeader() });
+            orders = await response.json();
             renderOrders();
             updateDashboard();
         }
@@ -1471,24 +1496,21 @@
                 const itemsText = order.items.map(item => `${item.name} x${item.quantity} ($${item.price.toFixed(2)})`).join(', ');
                 return `
                     <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 12px; margin-bottom: 12px; color: white;">
-                        <strong>Order #${order.id}</strong> - ${order.placedAt}<br>
-                        <strong>Buyer:</strong> ${order.name} (${order.email})<br>
-                        <strong>Phone:</strong> ${order.phone}<br>
-                        <strong>Address:</strong> ${order.address}<br>
-                        <strong>Drop-off:</strong> ${order.dropOffLocation} <a href="${order.mapLink}" target="_blank" style="color: #1aad96; text-decoration: underline;">View on Google Maps</a><br>
+                        <strong>Order #${order._id.substring(0,8)}</strong> - ${new Date(order.createdAt).toLocaleDateString()}<br>
                         <strong>Items:</strong> ${itemsText}<br>
-                        <strong>Total:</strong> $${order.total}
+                        <strong>Total:</strong> $${order.total}<br>
+                        <strong>Status:</strong> ${order.status}
                     </div>
                 `;
             }).join('');
         }
 
         function updateDashboard() {
-            document.getElementById('dashboardTotalOrders').textContent = orders.length;
-            document.getElementById('dashboardCommunityItems').textContent = communityItems.length;
-            document.getElementById('dashboardSellers').textContent = 1;
+            if(document.getElementById('dashboardTotalOrders')) {
+                document.getElementById('dashboardTotalOrders').textContent = orders.length;
+                document.getElementById('dashboardCommunityItems').textContent = products.length;
+            }
         }
-
         // COMMUNITY SELLER FEATURES
         let communityItems = [];
 
@@ -1624,19 +1646,49 @@ const name = document.getElementById('sellItemName').value;
             }
         }
 
+        function renderUserOrderHistory() {
+            const userOrderHistoryDiv = document.getElementById('userOrderHistory');
+            if (!userOrderHistoryDiv) return;
+
+            if (!currentUser || orders.length === 0) {
+                userOrderHistoryDiv.innerHTML = '<p style="text-align: center; color: #999;">No orders found.</p>';
+                return;
+            }
+
+            const userOrders = orders.filter(order => order.userId === currentUser._id); // Assuming orders array contains userId
+
+            if (userOrders.length === 0) {
+                userOrderHistoryDiv.innerHTML = '<p style="text-align: center; color: #999;">No orders found for this account.</p>';
+                return;
+            }
+
+            userOrderHistoryDiv.innerHTML = userOrders.map(order => {
+                const itemsText = order.items.map(item => `${item.name} x${item.quantity}`).join(', ');
+                return `
+                    <div class="account-order-item">
+                        <strong>Order #${order._id.substring(0, 8)}</strong> - ${new Date(order.createdAt).toLocaleDateString()}<br>
+                        Items: ${itemsText}<br>
+                        Total: $${order.total.toFixed(2)}<br>
+                        Status: ${order.status}
+                    </div>
+                `;
+            }).join('');
+        }
+
         function showAccountModal() {
             const name = currentUser?.name || 'Guest User';
             const email = currentUser?.email || 'Browsing as guest';
-            const status = currentUser ? 'Signed in with ' + currentUser.provider : 'Guest';
-            const createdAt = currentUser?.createdAt || 'N/A';
+            const status = currentUser ? `Signed in as ${currentUser.role}` : 'Guest';
+            const createdAt = currentUser ? new Date(currentUser.createdAt).toLocaleDateString() : 'N/A';
 
-            document.getElementById('accountName').textContent = name;
-            document.getElementById('accountEmail').textContent = email;
+            document.getElementById('accountName').textContent = currentUser?.username || 'Guest User';
+            document.getElementById('accountEmail').textContent = currentUser?.email || 'Not available'; // Backend doesn't return email for now
             document.getElementById('accountStatus').textContent = status;
-            document.getElementById('totalOrders').textContent = cart.length > 0 ? Math.floor(Math.random() * 10) + 5 : Math.floor(Math.random() * 5);
-            document.getElementById('itemsListed').textContent = communityItems.filter(i => i.seller === 'You').length;
+            document.getElementById('totalOrders').textContent = orders.filter(order => order.userId === currentUser?._id).length;
+            document.getElementById('itemsListed').textContent = products.filter(p => p.seller === currentUser?.username).length; // Assuming products have a seller field
             document.getElementById('accountCreated').textContent = createdAt;
             document.getElementById('accountModal').classList.add('active');
+            renderUserOrderHistory(); // Render user-specific orders
         }
 
         function closeAccountModal() {
