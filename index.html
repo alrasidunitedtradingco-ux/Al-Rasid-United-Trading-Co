@@ -1005,28 +1005,7 @@
         // Guests can browse, add items, and place orders without signing in.
 
         // DATA
-        let products = [
-            { id: 1, name: 'Premium Smartphone', price: 599.99, category: 'Electronics', emoji: '📱', stock: 15, rating: 4.5, reviews: 128, description: 'Latest technology smartphone with advanced features' },
-            { id: 2, name: 'Wireless Headphones', price: 149.99, category: 'Electronics', emoji: '🎧', stock: 25, rating: 4.3, reviews: 95, description: 'High-quality sound with noise cancellation' },
-            { id: 3, name: 'Smart Watch', price: 299.99, category: 'Electronics', emoji: '⌚', stock: 20, rating: 4.4, reviews: 156, description: 'Stay connected with this advanced smartwatch' },
-            { id: 4, name: 'Laptop', price: 1099.99, category: 'Computers', emoji: '💻', stock: 10, rating: 4.6, reviews: 78, description: 'Powerful laptop for work and entertainment' },
-            { id: 5, name: 'Tablet', price: 449.99, category: 'Electronics', emoji: '📲', stock: 12, rating: 4.2, reviews: 84, description: 'Perfect for reading, browsing, and media' },
-            { id: 6, name: 'Camera', price: 799.99, category: 'Photography', emoji: '📷', stock: 8, rating: 4.7, reviews: 112, description: 'Professional grade digital camera' },
-            { id: 7, name: 'Desk Lamp', price: 49.99, category: 'Home & Office', emoji: '💡', stock: 30, rating: 4.1, reviews: 64, description: 'Bright LED desk lamp with USB charging' },
-            { id: 8, name: 'Coffee Maker', price: 79.99, category: 'Home & Office', emoji: '☕', stock: 18, rating: 4.3, reviews: 91, description: 'Brew perfect coffee every time' },
-            { id: 9, name: 'Portable Speaker', price: 89.99, category: 'Electronics', emoji: '🔊', stock: 22, rating: 4.4, reviews: 203, description: 'Powerful sound on the go with waterproof design' },
-            { id: 10, name: 'USB-C Cable (3-Pack)', price: 19.99, category: 'Accessories', emoji: '🔌', stock: 50, rating: 4.2, reviews: 340, description: 'Durable fast-charging cables' },
-            { id: 11, name: 'Wireless Mouse', price: 29.99, category: 'Computers', emoji: '🖱️', stock: 35, rating: 4.3, reviews: 156, description: 'Ergonomic wireless mouse with long battery' },
-            { id: 12, name: 'Mechanical Keyboard', price: 129.99, category: 'Computers', emoji: '⌨️', stock: 16, rating: 4.6, reviews: 289, description: 'RGB backlit mechanical keyboard for gaming' },
-            { id: 13, name: 'Monitor 27 inch', price: 249.99, category: 'Computers', emoji: '🖥️', stock: 9, rating: 4.5, reviews: 98, description: 'Ultra HD 4K display with IPS panel' },
-            { id: 14, name: 'External SSD 1TB', price: 99.99, category: 'Storage', emoji: '💾', stock: 19, rating: 4.7, reviews: 412, description: 'Fast external solid state drive' },
-            { id: 15, name: 'Power Bank 20000mAh', price: 49.99, category: 'Accessories', emoji: '🔋', stock: 28, rating: 4.4, reviews: 567, description: 'High capacity fast charging power bank' },
-            { id: 16, name: 'Phone Stand', price: 14.99, category: 'Accessories', emoji: '📱', stock: 60, rating: 4.2, reviews: 234, description: 'Adjustable universal phone stand' },
-            { id: 17, name: 'Webcam 1080p', price: 59.99, category: 'Photography', emoji: '📹', stock: 14, rating: 4.3, reviews: 145, description: 'HD webcam for streaming and video calls' },
-            { id: 18, name: 'Tripod', price: 34.99, category: 'Photography', emoji: '📸', stock: 21, rating: 4.4, reviews: 178, description: 'Adjustable tripod for cameras and phones' },
-            { id: 19, name: 'Desk Organizer', price: 24.99, category: 'Home & Office', emoji: '🗂️', stock: 40, rating: 4.1, reviews: 89, description: 'Multi-compartment desk organizer' },
-            { id: 20, name: 'Ergonomic Chair', price: 249.99, category: 'Home & Office', emoji: '🪑', stock: 7, rating: 4.6, reviews: 203, description: 'High-back ergonomic office chair' }
-        ];
+        let products = [];
 
         let cart = [];
         let orders = [];
@@ -1367,10 +1346,7 @@
         }
 
         // COMMUNITY SELLER FEATURES
-        let communityItems = [
-            { id: 1001, name: 'Handmade Leather Wallet', price: 29.99, category: 'Accessories', emoji: '👛', description: 'Stylish wallet with card slots and coin pocket', seller: 'Community' },
-            { id: 1002, name: 'Second-hand Bicycle', price: 120.00, category: 'Sports', emoji: '🚲', description: 'Well-maintained bicycle ready for city rides', seller: 'Community' }
-        ];
+        let communityItems = [];
 
         function showSellItemModal() {
             document.getElementById('sellItemModal').classList.add('active');
