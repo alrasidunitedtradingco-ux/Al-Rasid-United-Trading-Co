@@ -11,6 +11,53 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     
     <style>
+        /* AUTH OVERLAY */
+        #authOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .auth-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            color: #333;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .google-btn:hover {
+            background: #f5f5f5;
+        }
+
         :root {
             --primary-color: #1a472a;
             --primary-light: #2d5a3d;
@@ -704,6 +751,19 @@
     </style>
 </head>
 <body>
+    <!-- AUTHENTICATION OVERLAY -->
+    <div id="authOverlay">
+        <div class="auth-card">
+            <i class="fas fa-store" style="font-size: 50px; color: var(--primary-color); margin-bottom: 20px;"></i>
+            <h2 style="margin-bottom: 10px;">Welcome Back</h2>
+            <p style="color: #666; margin-bottom: 20px;">Please sign in to access Al Rasid Trading store.</p>
+            <button class="google-btn" onclick="signInWithGoogle()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="20">
+                Sign in with Google
+            </button>
+        </div>
+    </div>
+
     <!-- HEADER -->
     <header>
         <div class="header-top">
@@ -1001,8 +1061,53 @@
 
     <!-- SCRIPTS -->
     <script>
-        // Firebase authentication is disabled for this version of the store.
-        // Guests can browse, add items, and place orders without signing in.
+        // FIREBASE CONFIGURATION
+        // Replace the placeholder values below with your actual Firebase project config
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Auth State Listener
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                currentUser = {
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL,
+                    provider: 'Google',
+                    createdAt: user.metadata.creationTime
+                };
+                document.getElementById('authOverlay').style.display = 'none';
+                updateHeaderUser();
+            } else {
+                document.getElementById('authOverlay').style.display = 'flex';
+                currentUser = null;
+                updateHeaderUser();
+            }
+        });
+
+        function signInWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).catch(error => {
+                alert("Sign in failed: " + error.message);
+            });
+        }
+
+        function logoutAccount() {
+            auth.signOut().then(() => {
+                closeAccountModal();
+                showNotification('Signed out successfully.');
+            });
+        }
 
         // DATA
         let products = [];
@@ -1018,8 +1123,6 @@
             loadCategories();
             loadCommunityItems();
             loadOrders();
-            loadLoggedInUser();
-            requireSignIn();
             showAdminSection('dashboard');
         });
 
@@ -1457,16 +1560,6 @@ const name = document.getElementById('sellItemName').value;
             document.getElementById('communitySection').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function loadLoggedInUser() {
-            const savedUser = localStorage.getItem('currentUser');
-            currentUser = savedUser ? JSON.parse(savedUser) : null;
-            updateHeaderUser();
-        }
-
-        function requireSignIn() {
-            // Sign-in has been disabled. Guests can browse and use the store without logging in.
-        }
-
         function generateSellDescription(name, category) {
             const useCases = {
                 'Accessories': 'Perfect as a stylish everyday accessory that adds convenience to your routine.',
@@ -1507,14 +1600,6 @@ const name = document.getElementById('sellItemName').value;
 
         function closeAccountModal() {
             document.getElementById('accountModal').classList.remove('active');
-        }
-
-        function logoutAccount() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateHeaderUser();
-            closeAccountModal();
-            showNotification('Now browsing as guest.');
         }
 
         // ADMIN FUNCTIONS
