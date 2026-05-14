@@ -278,7 +278,7 @@ You see new order with customer details
 - [ ] Contact pending customers
 
 ### Weekly (15 minutes)
-- [ ] Export orders to CSV
+- [ ] Export orders to CSV (if implemented)
 - [ ] Review sales metrics
 - [ ] Plan delivery routes
 - [ ] Check inventory levels

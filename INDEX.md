@@ -46,11 +46,11 @@
 ---
 
 ### 🔥 "I Want to Add Firebase (Later)"
-👉 **READ THIS:** [FIREBASE_INTEGRATION.md](FIREBASE_INTEGRATION.md)
-- Make orders permanent
-- Real-time updates
-- Email notifications
-- Professional database
+👉 **NOTE:** Firebase has been removed. This project now uses a custom Node.js/Express backend with MongoDB for data persistence.
+- Orders are now permanent in MongoDB
+- Custom authentication with admin/customer roles
+- Auto-login with JWT
+- See `server.js` and `index.html` for implementation.
 
 **Do this:** Week 2-3 (not today)
 
@@ -73,7 +73,7 @@ al-rasid-trading/
 │   ├── LAUNCH_CHECKLIST.md          ← Deploy checklist (5 min)
 │   ├── NETLIFY_DEPLOYMENT.md        ← Detailed deployment
 │   └── QUICKSTART.md                ← First-time user guide
-│
+│ 
 ├── 🎨 CUSTOMIZATION PHASE
 │   ├── CUSTOMIZATION.md             ← Change colors/name
 │   └── (Update index.html)           ← Make the changes
@@ -84,7 +84,7 @@ al-rasid-trading/
 │
 ├── 🔧 ADVANCED PHASES
 │   ├── BACKEND_SETUP.md             ← Backend options
-│   ├── FIREBASE_INTEGRATION.md      ← Firebase guide
+│   ├── (Firebase removed)           ← Now using custom Node.js/MongoDB
 │   └── STRIPE_INTEGRATION.md        ← Payments (coming)
 │
 └── ❓ HELP & REFERENCE
@@ -276,7 +276,7 @@ START HERE
 │   ↓
 ├─→ ROADMAP.md (10 min)
 │   See the big picture
-│   ↓
+│   ↓ (Firebase removed, now custom auth)
 ├─→ FIREBASE_INTEGRATION.md (2-3 hrs)
 │   When you need data persistence
 │   ↓

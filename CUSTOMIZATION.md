@@ -274,7 +274,7 @@ color: #DC143C;             /* Red Price */
 
 ---
 
-## 11. Multi-Language Support
+## 11. Multi-Language Support (Google Translate Widget)
 
 The store uses the **Google Translate Widget** to support multi-language browsing.
 

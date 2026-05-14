@@ -86,7 +86,7 @@ Welcome! Here's everything you need to know about your e-commerce store.
 → Read [DEPLOYMENT.md](DEPLOYMENT.md) → Choose Netlify or GitHub Pages
 
 #### ...save customer orders permanently
-→ Read [BACKEND_SETUP.md](BACKEND_SETUP.md) → Choose Firebase
+→ Read BACKEND_SETUP.md → Choose MongoDB
 
 #### ...add payment processing
 → [BACKEND_SETUP.md](BACKEND_SETUP.md) → Section: Stripe Payments
@@ -218,7 +218,7 @@ al-rasid-trading/
 **A:** Not yet. They refresh and disappear. Add Firebase to fix (see [BACKEND_SETUP.md](BACKEND_SETUP.md))
 
 ### Q: Do I need a domain name?
-**A:** You get a free `.netlify.app` domain. Optional: Buy custom domain ($10-15/year)
+**A:** You get a free `.netlify.app` domain. Optional: Buy custom domain ($10-15/year).
 
 ### Q: Can I add payment processing?
 **A:** Yes, later. First get the basic store working, then integrate Stripe.

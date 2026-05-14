@@ -1,66 +1,29 @@
-# 🚀 Google Sign-In Setup Guide
+# Custom Authentication Setup Guide
 
-## Problem Fixed ✅
-The sign-in now uses **real Google authentication** instead of fake email prompts!
+This project now uses a custom username/password authentication system with a Node.js/Express backend and MongoDB.
 
-## What Changed
-- ✅ Added Firebase SDK
-- ✅ Implemented Google OAuth sign-in
-- ✅ Users stay signed in after page refresh
-- ✅ Proper user data from Google account
+**Google Sign-In and Firebase have been removed.**
 
-## Setup Required (5 minutes)
+## Key Features:
+- Custom username/password login
+- Admin role for managing products and viewing all orders
+- Customer role for placing orders and viewing personal order history
+- Auto-login using JWT (JSON Web Tokens)
+- Data persistence in MongoDB
 
-### 1. Create Firebase Project
-1. Go to https://firebase.google.com
-2. Click "Get Started" → "Create a project"
-3. Name: `al-rasid-trading`
-4. Enable Google Analytics (optional)
-5. Click "Create project"
+## How to Use:
+1.  **Start your Node.js backend**: Ensure `server.js` is running and connected to MongoDB.
+2.  **Open `index.html`**: You will be prompted to sign in or register.
+3.  **Register a new account**: Create a username and password. This account will initially have the `customer` role.
+4.  **Create an Admin Account**:
+    *   Register a new user through the website.
+    *   Access your MongoDB database (e.g., using MongoDB Compass).
+    *   Find the user you just created in the `users` collection.
+    *   Manually update their `role` field from `"customer"` to `"admin"`.
+    *   Log in with this updated account to access admin features.
 
-### 2. Enable Authentication
-1. In Firebase console → "Authentication"
-2. Click "Get started"
-3. Go to "Sign-in method" tab
-4. Click "Google" → "Enable"
-5. **CRITICAL:** Click "Settings" (next to Sign-in method) → "Authorized domains".
-   - Click "Add domain" and enter `localhost`.
-   - If you deployed to Netlify, add your `[your-site].netlify.app` domain here.
-6. Save
-
-### 3. Get Firebase Config
-1. Click gear icon → "Project settings"
-2. Scroll to "Your apps" → "Web app"
-3. Click "Add app" if needed
-4. Copy the config object
-
-### 4. Update index.html
-1. Open `index.html`
-2. Find the `firebaseConfig` object (around line 1008)
-3. Replace the placeholder values with your real config:
-
-```javascript
-const firebaseConfig = {
-    apiKey: "AIzaSyC...", // Your real API key
-    authDomain: "al-rasid-trading.firebaseapp.com",
-    projectId: "al-rasid-trading",
-    // ... etc
-};
-```
-
-### 5. Test It!
-1. Open `index.html` in browser
-2. Click "Account" → "Sign in with Google"
-3. Complete Google OAuth
-4. You're signed in! 🎉
-
-## Troubleshooting
-- **"Sign-in failed"**: Check Firebase config is correct
-- **"Invalid domain"**: Add your domain to Firebase authorized domains
-- **Popup blocked**: Allow popups for the site
-
-## Next Steps
-- Add Firestore database for persistent orders
-- Deploy to Netlify with Firebase
-- Add more auth providers (Apple, Facebook)</content>
+## Troubleshooting:
+- **"Could not connect to server"**: Ensure `server.js` is running and MongoDB is active.
+- **"Authentication failed"**: Check your username and password.
+- **Admin features not visible**: Verify the user's `role` in MongoDB is set to `"admin"`.
 <parameter name="filePath">c:\Users\DELL\web test\al-rasid-trading\GOOGLE_SIGNIN_SETUP.md
