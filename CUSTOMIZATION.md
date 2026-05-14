@@ -41,11 +41,19 @@ Open `index.html` in a text editor (Notepad, VS Code, etc.)
 
 ## 2. Change Colors
 
-### Primary Color (Dark Green)
-**Current:** `#1a472a` (Dark Green)
+### Theme Colors (New Method)
+The store now uses **CSS Variables** located at the top of the `<style>` block in `index.html`. 
+Instead of finding and replacing every hex code, simply update these variables:
 
-**Find all instances of `#1a472a` and replace with your color:**
-
+```css
+:root {
+    --primary-color: #1a472a;   /* Change for Header/Admin */
+    --primary-light: #2d5a3d;   /* Change for Header Gradient/Hover */
+    --accent-color: #ff9900;    /* Change for Buttons/Search/Cart */
+    --accent-hover: #e68a00;    /* Change for Button Hover */
+    --price-color: #B12704;     /* Change for Prices */
+}
+```
 #### Color Options:
 - **Professional Blue**: `#003366`
 - **Royal Purple**: `#663399`
