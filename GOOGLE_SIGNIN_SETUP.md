@@ -23,7 +23,9 @@ The sign-in now uses **real Google authentication** instead of fake email prompt
 2. Click "Get started"
 3. Go to "Sign-in method" tab
 4. Click "Google" → "Enable"
-5. Add your domain: `localhost` (for testing)
+5. **CRITICAL:** Click "Settings" (next to Sign-in method) → "Authorized domains".
+   - Click "Add domain" and enter `localhost`.
+   - If you deployed to Netlify, add your `[your-site].netlify.app` domain here.
 6. Save
 
 ### 3. Get Firebase Config

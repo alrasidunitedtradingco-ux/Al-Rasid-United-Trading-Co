@@ -1131,9 +1131,15 @@
         });
 
         function signInWithGoogle() {
+            if (window.location.protocol === 'file:') {
+                alert("ERROR: Google Sign-In will not work if you open the HTML file directly (file://).\n\nYou MUST use a local server (like Live Server in VS Code) or deploy the site to Netlify first.");
+                return;
+            }
+
             const provider = new firebase.auth.GoogleAuthProvider();
             auth.signInWithPopup(provider).catch(error => {
-                alert("Sign in failed: " + error.message);
+                console.error("Firebase Auth Error:", error.code, error.message);
+                alert("Sign in failed: " + error.message + "\n\nTip: Check if your domain is whitelisted in Firebase Console > Authentication > Settings.");
             });
         }
 
