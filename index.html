@@ -9,62 +9,6 @@
     <!-- Firebase SDK -->
     
     <style>
-        /* AUTH OVERLAY */
-        #authOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
-
-        .auth-card {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            color: #333;
-            max-width: 400px;
-            width: 90%;
-        }
-
-        .auth-form input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .auth-toggle {
-            margin-top: 15px;
-            font-size: 13px;
-            color: #666;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
         .account-order-item {
             background: #f9f9f9;
             border: 1px solid #eee;
@@ -796,23 +740,6 @@
     </style>
 </head>
 <body>
-    <!-- AUTHENTICATION OVERLAY -->
-    <div id="authOverlay" style="display: flex;">
-        <div class="auth-card">
-            <i class="fas fa-store" style="font-size: 50px; color: var(--primary-color); margin-bottom: 20px;"></i>
-            <h2 id="authTitle" style="margin-bottom: 10px;">Welcome Back</h2>
-            <p id="authSubtitle" style="color: #666; margin-bottom: 20px;">Please sign in to access Al Rasid Trading store.</p>
-            
-            <form class="auth-form" id="authForm" onsubmit="handleAuth(event)">
-                <input type="text" id="authUsername" placeholder="Username" required>
-                <input type="password" id="authPassword" placeholder="Password" required>
-                <button type="submit" class="auth-btn" id="authSubmitBtn">Sign In</button>
-            </form>
-            
-            <div class="auth-toggle" id="authToggle" onclick="toggleAuthMode()">Don't have an account? Register</div>
-        </div>
-    </div>
-
     <!-- HEADER -->
     <header>
         <div class="header-top">
@@ -826,11 +753,11 @@
             </div>
             <div id="google_translate_element"></div>
             <div class="header-links">
-                <button onclick="toggleAdmin()" id="adminNavBtn" class="hidden">
+                <button onclick="toggleAdmin()" id="adminNavBtn">
                     <i class="fas fa-cog"></i>
                     <span>Admin</span>
                 </button>
-                <button onclick="showSellItemModal()" id="sellNavBtn" class="hidden">
+                <button onclick="showSellItemModal()" id="sellNavBtn">
                     <i class="fas fa-tags"></i>
                     <span>Sell Item</span>
                 </button>
@@ -1093,7 +1020,6 @@
 
             <div style="display: flex; gap: 10px; margin-top: 20px;">
                 <button class="btn btn-secondary" style="flex: 1;" onclick="closeAccountModal()">Close</button>
-                <button class="btn btn-primary" style="flex: 1;" onclick="logoutAccount()">Logout</button>
             </div>
         </div>
     </div>
@@ -1119,83 +1045,12 @@
     <!-- SCRIPTS -->
     <script>
         const API_URL = 'http://localhost:3000/api';
-        let authMode = 'login';
 
-        function toggleAuthMode() {
-            authMode = authMode === 'login' ? 'register' : 'login';
-            document.getElementById('authTitle').textContent = authMode === 'login' ? 'Welcome Back' : 'Create Account';
-            document.getElementById('authSubtitle').textContent = authMode === 'login' ? 'Please sign in to access Al Rasid Trading store.' : 'Join us to start shopping.';
-            document.getElementById('authSubmitBtn').textContent = authMode === 'login' ? 'Sign In' : 'Register';
-            document.getElementById('authToggle').textContent = authMode === 'login' ? "Don't have an account? Register" : "Already have an account? Sign In";
-        }
-
-        async function handleAuth(event) {
-            event.preventDefault();
-            const username = document.getElementById('authUsername').value;
-            const password = document.getElementById('authPassword').value;
-
-            try {
-                const response = await fetch(`${API_URL}/${authMode}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                const data = await response.json();
-
-                if (response.ok) {
-                    if (authMode === 'login') {
-                        localStorage.setItem('token', data.token);
-                        localStorage.setItem('user', JSON.stringify(data.user));
-                        initApp(data.user);
-                    } else {
-                        alert('Registration successful! Please login.');
-                        toggleAuthMode();
-                    }
-                } else {
-                const errorMsg = data.error || 'Authentication failed';
-                alert(errorMsg);
-                }
-            } catch (err) {
-            console.error('Connection Error:', err);
-            alert(`Could not connect to server at ${API_URL}. \n1. Ensure "node server.js" is running. \n2. Check the browser console (F12) for details.`);
-            }
-        }
-
-        function initApp(user) {
-            currentUser = user;
-            document.getElementById('authOverlay').style.display = 'none';
-            updateHeaderUser();
+        // Initialize app on load
+        window.addEventListener('load', () => {
             loadProducts();
             loadOrders();
-            
-            // Role-based visibility
-            if (user.role === 'admin') {
-                document.getElementById('adminNavBtn').classList.remove('hidden');
-                document.getElementById('sellNavBtn').classList.remove('hidden');
-            } else {
-                document.getElementById('adminNavBtn').classList.add('hidden');
-                document.getElementById('sellNavBtn').classList.add('hidden');
-            }
-        }
-
-        // Auto login on load
-        window.addEventListener('load', () => {
-            const token = localStorage.getItem('token');
-            const user = localStorage.getItem('user');
-            if (token && user) {
-                initApp(JSON.parse(user));
-            }
         });
-
-        function getAuthHeader() {
-            return { 'Authorization': `Bearer ${localStorage.getItem('token')}` };
-        }
-
-        function logoutAccount() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            location.reload();
-        }
 
         // DATA
         let products = [];
@@ -1203,7 +1058,6 @@
         let cart = [];
         let orders = [];
         let currentProductModal = null;
-        let currentUser = null;
 
         // LOAD PRODUCTS
         async function loadProducts(filter = 'all') {
@@ -1461,10 +1315,7 @@
             try {
                 const response = await fetch(`${API_URL}/orders`, {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        ...getAuthHeader()
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(orderData)
                 });
 
@@ -1479,7 +1330,7 @@
         }
 
         async function loadOrders() {
-            const response = await fetch(`${API_URL}/orders`, { headers: getAuthHeader() });
+            const response = await fetch(`${API_URL}/orders`);
             orders = await response.json();
             renderOrders();
             updateDashboard();
@@ -1639,32 +1490,17 @@ const name = document.getElementById('sellItemName').value;
             return `${descriptionBase} ${extra}`;
         }
 
-        function updateHeaderUser() {
-            const buttonText = document.getElementById('accountButtonText');
-            if (currentUser) {
-                buttonText.textContent = currentUser.name || 'Account';
-            } else {
-                buttonText.textContent = 'Account';
-            }
-        }
 
         function renderUserOrderHistory() {
             const userOrderHistoryDiv = document.getElementById('userOrderHistory');
             if (!userOrderHistoryDiv) return;
 
-            if (!currentUser || orders.length === 0) {
+            if (orders.length === 0) {
                 userOrderHistoryDiv.innerHTML = '<p style="text-align: center; color: #999;">No orders found.</p>';
                 return;
             }
 
-            const userOrders = orders.filter(order => order.userId === currentUser._id); // Assuming orders array contains userId
-
-            if (userOrders.length === 0) {
-                userOrderHistoryDiv.innerHTML = '<p style="text-align: center; color: #999;">No orders found for this account.</p>';
-                return;
-            }
-
-            userOrderHistoryDiv.innerHTML = userOrders.map(order => {
+            userOrderHistoryDiv.innerHTML = orders.map(order => {
                 const itemsText = order.items.map(item => `${item.name} x${item.quantity}`).join(', ');
                 return `
                     <div class="account-order-item">
@@ -1678,17 +1514,12 @@ const name = document.getElementById('sellItemName').value;
         }
 
         function showAccountModal() {
-            const name = currentUser?.name || 'Guest User';
-            const email = currentUser?.email || 'Browsing as guest';
-            const status = currentUser ? `Signed in as ${currentUser.role}` : 'Guest';
-            const createdAt = currentUser ? new Date(currentUser.createdAt).toLocaleDateString() : 'N/A';
-
-            document.getElementById('accountName').textContent = currentUser?.username || 'Guest User';
-            document.getElementById('accountEmail').textContent = currentUser?.email || 'Not available'; // Backend doesn't return email for now
-            document.getElementById('accountStatus').textContent = status;
-            document.getElementById('totalOrders').textContent = orders.filter(order => order.userId === currentUser?._id).length;
-            document.getElementById('itemsListed').textContent = products.filter(p => p.seller === currentUser?.username).length; // Assuming products have a seller field
-            document.getElementById('accountCreated').textContent = createdAt;
+            document.getElementById('accountName').textContent = 'Store User';
+            document.getElementById('accountEmail').textContent = 'Guest Mode';
+            document.getElementById('accountStatus').textContent = 'Active';
+            document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('itemsListed').textContent = products.length;
+            document.getElementById('accountCreated').textContent = 'N/A';
             document.getElementById('accountModal').classList.add('active');
             renderUserOrderHistory(); // Render user-specific orders
         }
