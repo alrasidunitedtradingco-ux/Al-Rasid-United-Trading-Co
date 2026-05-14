@@ -15,7 +15,15 @@ const JWT_SECRET = 'super_secret_key_change_this_in_production';
 
 mongoose.connect(MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('Could not connect to MongoDB:', err));
+    .catch(err => {
+        console.error('CRITICAL ERROR: Could not connect to MongoDB!');
+        console.error('Make sure your MongoDB service is running (e.g., mongod).');
+        console.error('Error Details:', err.message);
+        process.exit(1); // Stop the server if DB is not available
+    });
+
+// Health check route
+app.get('/', (req, res) => res.send('Al Rasid API is running...'));
 
 // 2. MODELS
 

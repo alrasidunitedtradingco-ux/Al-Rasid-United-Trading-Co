@@ -1152,10 +1152,12 @@
                         toggleAuthMode();
                     }
                 } else {
-                    alert(data.error || 'Authentication failed');
+                const errorMsg = data.error || 'Authentication failed';
+                alert(errorMsg);
                 }
             } catch (err) {
-                alert('Could not connect to server. Make sure server.js is running.');
+            console.error('Connection Error:', err);
+            alert(`Could not connect to server at ${API_URL}. \n1. Ensure "node server.js" is running. \n2. Check the browser console (F12) for details.`);
             }
         }
 
