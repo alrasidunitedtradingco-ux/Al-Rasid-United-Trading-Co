@@ -1854,7 +1854,7 @@
                 // Filter orders for current user if not admin
                 if (currentUser && currentUser.role !== 'admin' && order.userId !== currentUser._id) return '';
 
-                const itemsHtml = order.items.map(item => {
+                const itemsHtml = order.items.map(item => `
                     <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.2); padding: 5px 0;">
                         <span>${item.name} x${item.quantity}</span>
                         <span>$${(item.price * item.quantity).toFixed(2)}</span>

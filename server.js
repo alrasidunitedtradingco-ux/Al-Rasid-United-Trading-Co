@@ -78,7 +78,7 @@ const auth = async (req, res, next) => {
         }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.id);
-        if (!user) throw new new Error();
+        if (!user) throw new Error();
         req.user = user;
         req.token = token;
         next();
@@ -110,7 +110,8 @@ app.post('/api/auth/login', async (req, res) => {
         }
         if (!process.env.JWT_SECRET) {
             throw new Error('JWT_SECRET is not defined in environment variables.');
-        }        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+        }
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         res.send({ token, user: { _id: user._id, username: user.username, role: user.role } });
     } catch (e) { res.status(500).send(e); }
 });
@@ -120,7 +121,8 @@ app.get('/api/auth/me', async (req, res) => {
         const token = req.header('Authorization').replace('Bearer ', '');
         if (!process.env.JWT_SECRET) {
             throw new Error('JWT_SECRET is not defined in environment variables.');
-        }        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.id);
         if (!user) throw new Error();
         res.send({ _id: user._id, username: user.username, role: user.role });
