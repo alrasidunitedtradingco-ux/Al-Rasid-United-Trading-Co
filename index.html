@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al Rasid United Trading Co | Global Commodity Authority</title>
+    <title>Al Rasid United Trading Co | Premium Plastic Solutions Salalah</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0077be; /* Ocean Blue */
-            --primary-light: #00a0e9;
-            --accent-color: #25d366;  /* WhatsApp Green */
-            --accent-hover: #1eb954;
+            --primary-color: #002147; /* Deep Navy Blue */
+            --primary-light: #003366;
+            --accent-color: #C0C0C0;  /* Brushed Platinum */
+            --accent-hover: #A9A9A9;
+            --cta-color: #004a99;
             --price-color: #B12704;
-            --link-hover: #1aad96;
+            --link-hover: #C0C0C0;
             --assistant-bg: #e8f0e8;
-            --bg-light: #f3f4f6;
+            --bg-light: #f8fafc;
         }
 
         * {
@@ -887,81 +888,73 @@
 
     <!-- BANNER -->
     <div class="banner">
-        <h1>Premium Plastic Solutions for Salalah’s Homes & Businesses.</h1>
-        <p>Al Rasid United Trading Co. provides high-quality, durable, and food-safe plastic products with fast delivery across Salalah and the Dhofar region.</p>
+        <h1>Elevating Standards in Premium Plastic Products.</h1>
+        <p>Al Rasid United Trading Co. is Salalah’s premier supplier of high-grade, durable, and food-safe plastic solutions. We serve local enterprises, the hospitality sector, and modern households with uncompromised quality.</p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <button class="btn btn-primary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background-color: var(--primary-color);" onclick="document.getElementById('products-section').scrollIntoView()">
-                View Our Local Inventory
+            <button class="btn btn-primary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background-color: var(--cta-color);" onclick="document.getElementById('rfp-portal').scrollIntoView()">
+                Request a Corporate Quote
             </button>
-            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background: var(--accent-color); color: white; border: none;" onclick="window.open('https://wa.me/968XXXXXXXX', '_blank')">
-                <i class="fab fa-whatsapp"></i> Chat via WhatsApp
+            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background: white; color: var(--primary-color); border: none;" onclick="window.open('https://wa.me/yournumber', '_blank')">
+                Direct WhatsApp Order
             </button>
         </div>
     </div>
 
-    <!-- BUILD YOUR ORDER CALCULATOR -->
-    <div class="container" id="calculator-section">
+    <!-- RFP PORTAL -->
+    <div class="container" id="rfp-portal">
         <div class="calculator-card">
-            <h2 style="margin-bottom: 25px; color: var(--primary-color);">Interactive Quote Builder</h2>
-            <form onsubmit="event.preventDefault(); alert('Your detailed CIF/FOB quote request has been sent to our Trading Desk.');">
+            <h2 style="margin-bottom: 25px; color: var(--primary-color);">Request for Proposal (RFP) Portal</h2>
+            <form onsubmit="event.preventDefault(); alert('Your corporate RFP has been submitted to our procurement team.');">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                     <div class="form-group">
-                        <label>Commodity Selection</label>
+                        <label>Company Name</label>
+                        <input type="text" placeholder="Enter Legal Entity Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Product Category</label>
                         <select style="width:100%; padding:10px; border: 1px solid #ddd; border-radius: 5px;">
-                            <option>Microwave-Safe Containers (Bulk)</option>
-                            <option>Heavy-Duty Storage Boxes</option>
-                            <option>Commercial Waste Bins</option>
-                            <option>Premium Juice Bottles</option>
+                            <option>Commercial Food Packaging</option>
+                            <option>Home & Kitchen Organization</option>
+                            <option>Industrial Storage & Logistics</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Target Quantity</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="number" placeholder="Value" style="flex: 2;">
-                            <select style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-                                <option>Metric Tons</option>
-                                <option>Kilograms</option>
-                                <option>FCL (Full Container)</option>
-                            </select>
-                        </div>
+                        <label>Anticipated Monthly Volume</label>
+                        <input type="text" placeholder="e.g., 5,000 Units / 2 Tons" required>
                     </div>
                     <div class="form-group">
-                        <label>Packaging Preference</label>
+                        <label>Delivery Location</label>
                         <select style="width:100%; padding:10px; border: 1px solid #ddd; border-radius: 5px;">
-                            <option>Standard Wholesale Pack</option>
-                            <option>Private Label / Custom Branding</option>
-                            <option>Individual Retail Packaging</option>
+                            <option>Central Salalah</option>
+                            <option>Awqad</option>
+                            <option>Saadah</option>
+                            <option>Raysut Industrial Area</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="margin-top: 20px; width: 250px; background-color: var(--primary-color);">Request CIF/FOB Quote</button>
+                <button type="submit" class="btn btn-primary" style="margin-top: 20px; width: 250px; background-color: var(--primary-color);">Submit Corporate Inquiry</button>
             </form>
         </div>
     </div>
 
     <!-- SOURCE TO PORT TIMELINE -->
     <section id="timeline-section" style="background: var(--bg-light);">
-        <h2 class="section-title">Local Reliability in Dhofar</h2>
+        <h2 class="section-title">Why Partner With Us</h2>
         <div class="timeline">
             <div class="timeline-step">
-                <i class="fas fa-ship"></i>
-                <p>Premium Sourcing</p>
+                <i class="fas fa-microchip"></i>
+                <p>Premium Material Standards</p>
+                <small style="display:block; margin-top:10px; font-size:12px; opacity:0.7;">BPA-Free Polymers</small>
             </div>
             <div class="timeline-step">
-                <i class="fas fa-check-double"></i>
-                <p>Quality Control</p>
+                <i class="fas fa-route"></i>
+                <p>Strategic Local Supply Chain</p>
+                <small style="display:block; margin-top:10px; font-size:12px; opacity:0.7;">Direct Salalah Inventory</small>
             </div>
             <div class="timeline-step">
-                <i class="fas fa-warehouse"></i>
-                <p>Salalah Warehouse</p>
-            </div>
-            <div class="timeline-step">
-                <i class="fas fa-truck-loading"></i>
-                <p>Fast Local Delivery</p>
-            </div>
-            <div class="timeline-step">
-                <i class="fas fa-store"></i>
-                <p>Direct to You</p>
+                <i class="fas fa-handshake"></i>
+                <p>Tailored Enterprise Solutions</p>
+                <small style="display:block; margin-top:10px; font-size:12px; opacity:0.7;">Scalable B2B Pricing</small>
             </div>
         </div>
     </section>
@@ -970,14 +963,14 @@
     <section id="private-label" style="background: #fff;">
         <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 300px; padding: 40px; background: var(--primary-color); color: white; border-radius: 12px;">
-                <h2 style="color: var(--accent-color); margin-bottom: 20px;">Private Label Solutions</h2>
+                <h2 style="color: var(--accent-color); margin-bottom: 20px;">Corporate Private Labeling</h2>
                 <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;">
-                    Boost your brand in the Dhofar region. We provide end-to-end private labeling for cafes and restaurants, packing premium containers and bottles under your own brand name.
+                    Engineer your brand's physical presence. We provide end-to-end custom branding for hospitality and retail packaging, meeting strict regulatory and aesthetic standards.
                 </p>
                 <ul style="list-style: none; display: grid; gap: 10px;">
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Custom Bag Design & Printing</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Multi-size Packaging Options</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Market-specific Regulatory Labeling</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> High-Resolution Branding Application</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Market-Specific Regulatory Compliance</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Bulk Distribution Optimized Packaging</li>
                 </ul>
             </div>
             <div style="flex: 1; min-width: 300px;">
@@ -991,19 +984,19 @@
         <h2 class="section-title">Why Choose Us</h2>
         <div class="features-grid">
             <div class="feature-item">
-                <i class="fas fa-shield-alt"></i>
-                <h3>Premium Durability</h3>
-                <p>Durable, sleek, and designed to maximize space. Built to last in Salalah's unique climate.</p>
+                <i class="fas fa-award"></i>
+                <h3>Uncompromised Quality</h3>
+                <p>Sourced from the finest global farms and manufacturers, passing strict quality control.</p>
             </div>
             <div class="feature-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <h3>Same-Day Delivery</h3>
-                <p>Rapid delivery to Central Salalah, Saadah, and Awqad. Your supply chain never stops.</p>
+                <i class="fas fa-shipping-fast"></i>
+                <h3>Reliable Logistics</h3>
+                <p>We strictly adhere to organized dates and timelines. Your supply chain never stops.</p>
             </div>
             <div class="feature-item">
-                <i class="fas fa-utensils"></i>
-                <h3>Food-Safe Certified</h3>
-                <p>High-grade microwave-safe and BPA-free plastics for the bustling food sector.</p>
+                <i class="fas fa-seedling"></i>
+                <h3>Diverse Portfolio</h3>
+                <p>From premium coffee and select spices to high-grade agricultural products.</p>
             </div>
             <div class="feature-item">
                 <i class="fas fa-hand-holding-usd"></i>
@@ -1017,62 +1010,22 @@
     <section id="about-us" style="background: #f0f4f1;">
         <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 300px;">
-                <h2 style="color: var(--primary-color); margin-bottom: 20px; font-size: 32px;">Salalah’s Trusted Plastic Partner</h2>
-                <p style="font-size: 18px; line-height: 1.8; color: #444; margin-bottom: 20px;">
-                    At Al Rasid United Trading Co., we are proud to serve the Salalah community. We understand that local businesses and homes demand plastic products that aren't just cheap disposables, but premium, durable, and safe items.
+                <h2 style="color: var(--primary-color); margin-bottom: 20px; font-size: 32px;">Corporate Statement</h2>
+                <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 20px; font-style: italic;">
+                    "Al Rasid United Trading Co. was established with a singular mission: to redefine the quality of plastic commodities available in the Dhofar region. We bridge the gap between high-manufacturing standards and local market accessibility.
                 </p>
-                <p style="font-size: 18px; line-height: 1.8; color: #444;">
-                    From supplying the bustling food sector during the busy Khareef season to organizing local homes, we bridge the gap between world-class manufacturers and businesses that refuse to compromise on quality.
+                <p style="font-size: 16px; line-height: 1.8; color: #444;">
+                    By prioritizing premium-grade, eco-conscious, and highly durable polymers, we support the operational efficiency of Salalah’s commercial sector. Integrity, reliability, and precision remain the cornerstones of our trading desk."
                 </p>
             </div>
             <div style="flex: 1; min-width: 300px; background: var(--primary-color); padding: 40px; border-radius: 15px; color: white;">
                 <h3 style="margin-bottom: 20px;"><i class="fas fa-check-circle"></i> Our Standards</h3>
                 <ul style="list-style: none; display: grid; gap: 15px;">
-                    <li><i class="fas fa-certificate"></i> FDA Approved Food-Safe Materials</li>
-                    <li><i class="fas fa-map-marked-alt"></i> Local Salalah Showroom</li>
-                    <li><i class="fas fa-boxes"></i> High-Volume Bulk Availability</li>
-                    <li><i class="fas fa-bolt"></i> Express Khareef Support</li>
+                    <li><i class="fas fa-certificate"></i> ISO Certified Quality Control</li>
+                    <li><i class="fas fa-globe"></i> Global Sourcing Network</li>
+                    <li><i class="fas fa-box"></i> Premium Bulk Packaging</li>
+                    <li><i class="fas fa-calendar-check"></i> On-time Delivery Guarantee</li>
                 </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- MEET THE TRADING DESK -->
-    <section id="trading-desk" style="background: var(--bg-light);">
-        <h2 class="section-title">Meet the Trading Desk</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
-            <div style="text-align: center;">
-                <div style="width: 120px; height: 120px; background: #ddd; border-radius: 50%; margin: 0 auto 15px; overflow: hidden;">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200" style="width:100%; height:100%; object-fit:cover;">
-                </div>
-                <h4 style="margin-bottom: 5px;">Ahmed Al-Rasid</h4>
-                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Lead Commodity Trader</p>
-                <div style="display: flex; justify-content: center; gap: 10px; color: var(--primary-color);">
-                    <i class="fab fa-whatsapp"></i>
-                    <i class="fas fa-envelope"></i>
-                </div>
-            </div>
-            <div style="text-align: center;">
-                <div style="width: 120px; height: 120px; background: #ddd; border-radius: 50%; margin: 0 auto 15px; overflow: hidden;">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200" style="width:100%; height:100%; object-fit:cover;">
-                </div>
-                <h4 style="margin-bottom: 5px;">Sarah Jenkins</h4>
-                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Logistics & Compliance</p>
-                <div style="display: flex; justify-content: center; gap: 10px; color: var(--primary-color);">
-                    <i class="fab fa-whatsapp"></i>
-                    <i class="fas fa-envelope"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LOCAL MAP SECTION -->
-    <section id="location-map" style="background: #fff; padding-top: 0;">
-        <h2 class="section-title">Visit Our Salalah Showroom</h2>
-        <div style="width: 100%; height: 400px; background: #e5e7eb; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #666; border: 1px solid #ddd;">
-            <div style="text-align: center;">
-                <i class="fas fa-map-marker-alt" style="font-size: 40px; color: var(--primary-color); margin-bottom: 10px;"></i>
-                <p>Interactive Google Maps Widget for Salalah Office/Warehouse</p>
             </div>
         </div>
     </section>
@@ -1085,7 +1038,7 @@
 
     <!-- MAIN CONTAINER -->
     <div class="container" id="products-section">
-        <h2 class="section-title">Our Premium Product Catalogue</h2>
+        <h2 class="section-title">Professional Product Categorization</h2>
         <div class="products-grid" id="productsGrid">
             <!-- Products will be loaded here -->
         </div>
@@ -1110,9 +1063,10 @@
                 <div class="form-group">
                     <label>Product of Interest</label>
                     <select style="width:100%; padding:10px; border-radius:5px; border:1px solid #ddd;">
-                        <option>Premium Food Packaging</option>
-                        <option>Home & Kitchen Organization</option>
-                        <option>Industrial & Commercial Plastics</option>
+                        <option>Coffee & Cardamom</option>
+                        <option>Spices, Herbs & Legumes</option>
+                        <option>Premium Rice & Grains</option>
+                        <option>Nuts & Dry Fruits</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -1121,7 +1075,7 @@
                 </div>
                 <div class="form-group">
                     <label>Additional Requirements</label>
-                    <textarea rows="4" placeholder="Any specific colors, sizes, or custom branding requirements?"></textarea>
+                    <textarea rows="4" placeholder="Any specific origin or certification requirements?"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 16px;">Submit Inquiry</button>
             </form>
@@ -1133,15 +1087,15 @@
         <h2 class="section-title">Market Insights</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
             <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <span style="color: var(--primary-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">June 2026</span>
-                <h3 style="margin: 10px 0; font-size: 18px;">Preparing for Khareef: Packaging Trends for Local Cafes</h3>
-                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">How to choose the right clear juice bottles and microwave-safe containers for the high-season rush.</p>
+                <span style="color: var(--primary-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">Technical Report</span>
+                <h3 style="margin: 10px 0; font-size: 18px;">Commercial Food Packaging & Catering Logistics</h3>
+                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Engineered for presentation and preservation. Our tamper-evident leak-proof bowls meet strict hygienic standards.</p>
                 <a href="#" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Read Report <i class="fas fa-arrow-right"></i></a>
             </div>
             <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <span style="color: var(--primary-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">May 2026</span>
-                <h3 style="margin: 10px 0; font-size: 18px;">The Durability Factor: Plastics Built for Humidity</h3>
-                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Why commercial-grade organizers outperform standard retail items in Dhofar’s coastal climate.</p>
+                <span style="color: var(--primary-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">White Paper</span>
+                <h3 style="margin: 10px 0; font-size: 18px;">Industrial & Environmental Management Plastics</h3>
+                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">High-impact material handling equipment, including stackable crates and commercial-grade waste systems.</p>
                 <a href="#" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Read Report <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
@@ -1525,12 +1479,11 @@
                     <div class="product-image" onclick="showProductModal('${p._id}')">${imageHtml}</div>
                     <div class="product-info">
                         <div class="product-name">${p.name}</div>
-                        <a href="#" class="spec-sheet-btn" onclick="alert('Downloading Tech Spec PDF...')"><i class="fas fa-file-pdf"></i> Download Spec Sheet</a>
+                        <a href="#" class="spec-sheet-btn" onclick="alert('Downloading Technical Data Sheet (ISO/HACCP)...')">
+                            <i class="fas fa-file-pdf"></i> Download Data Sheet</a>
                         <div class="product-price">$${p.price.toFixed(2)}</div>
                         <div class="product-actions">
-                            <button class="btn btn-primary" style="background-color: var(--accent-color);" onclick="window.open('https://wa.me/968XXXXXXXX?text=' + encodeURIComponent('Hi Al Rasid Co, I am interested in ' + '${p.name}' + '. Do you have stock in Salalah?'), '_blank')">
-                                <i class="fab fa-whatsapp"></i> Order via WhatsApp
-                            </button>
+                            <button class="btn btn-primary" onclick="addToCart('${p._id}')">Add to Cart</button>
                         </div>
                     </div>`;
                 grid.appendChild(card);
