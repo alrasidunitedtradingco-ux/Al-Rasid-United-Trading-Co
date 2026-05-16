@@ -8,15 +8,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #002147; /* Deep Navy Blue */
-            --primary-light: #003366;
-            --accent-color: #C0C0C0;  /* Brushed Platinum */
-            --accent-hover: #A9A9A9;
-            --cta-color: #004a99;
+            --primary-color: #0F4C3A; /* Deep Emerald Green */
+            --primary-light: #16644f;
+            --accent-color: #D4AF37;  /* Metallic Champagne Gold */
+            --accent-hover: #b8860b;
+            --cta-color: #D4AF37;
             --price-color: #B12704;
-            --link-hover: #C0C0C0;
+            --link-hover: #D4AF37;
             --assistant-bg: #e8f0e8;
-            --bg-light: #f8fafc;
+            --bg-light: #F5FFFA; /* Ultra-Light Mint Cream */
         }
 
         * {
@@ -44,6 +44,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 2px solid var(--accent-color);
         }
 
         .header-top {
@@ -51,7 +52,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: none;
         }
 
         .logo {
@@ -60,6 +61,9 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .search-bar {
@@ -145,7 +149,7 @@
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            border-top: 5px solid var(--accent-color);
+            border: 1px solid var(--accent-color);
             margin-top: -60px;
             position: relative;
             z-index: 10;
@@ -155,12 +159,22 @@
         .timeline {
             display: flex;
             justify-content: space-between;
-            margin: 40px 0;
+            gap: 20px;
+            margin: 20px 0;
             position: relative;
         }
-        .timeline-step { text-align: center; flex: 1; position: relative; }
+        .timeline-step { 
+            text-align: center; 
+            flex: 1; 
+            position: relative; 
+            background: white; 
+            padding: 30px 20px; 
+            border-radius: 8px; 
+            border: 1px solid var(--accent-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
         .timeline-step i { font-size: 24px; color: var(--accent-color); margin-bottom: 10px; }
-        .timeline-step p { font-weight: 600; font-size: 14px; }
+        .timeline-step p { font-weight: 600; font-size: 16px; color: var(--primary-color); margin-bottom: 8px; }
 
         /* NEW SECTIONS STYLING */
         section {
@@ -174,6 +188,19 @@
             margin-bottom: 50px;
             color: var(--primary-color);
             font-size: 32px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background-color: var(--accent-color);
         }
 
         .header-links a:hover, .header-links button:hover {
@@ -223,10 +250,14 @@
 
         /* BANNER */
         .banner {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-            color: white;
+            background-color: var(--bg-light);
+            background-image: radial-gradient(var(--accent-color) 0.5px, transparent 0.5px), radial-gradient(var(--accent-color) 0.5px, var(--bg-light) 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            color: var(--primary-color);
             padding: 100px 30px;
             text-align: center;
+            border-bottom: 1px solid var(--accent-color);
         }
 
         .banner h1 {
@@ -240,7 +271,7 @@
         .banner p {
             font-size: 20px;
             margin-bottom: 40px;
-            opacity: 0.9;
+            color: #444;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
@@ -888,13 +919,13 @@
 
     <!-- BANNER -->
     <div class="banner">
-        <h1>Elevating Standards in Premium Plastic Products.</h1>
-        <p>Al Rasid United Trading Co. is Salalah’s premier supplier of high-grade, durable, and food-safe plastic solutions. We serve local enterprises, the hospitality sector, and modern households with uncompromised quality.</p>
+        <h1 style="color: var(--primary-color);">Elevating Standards in Premium Plastic Products.</h1>
+        <p>Al Rasid United Trading Co. is Salalah’s premier supplier of high-grade, durable, and food-safe plastic solutions. We serve local enterprises, hospitality sectors, and modern households with uncompromised quality.</p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <button class="btn btn-primary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background-color: var(--cta-color);" onclick="document.getElementById('rfp-portal').scrollIntoView()">
-                Request a Corporate Quote
+            <button class="btn btn-primary" style="padding: 15px 40px; font-size: 16px; border-radius: 5px; background-color: var(--accent-color); color: white; font-weight: bold; border: none; text-transform: uppercase;" onclick="document.getElementById('rfp-portal').scrollIntoView()">
+                Request Corporate Quote
             </button>
-            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background: white; color: var(--primary-color); border: none;" onclick="window.open('https://wa.me/yournumber', '_blank')">
+            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 16px; border-radius: 5px; background: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); font-weight: bold; text-transform: uppercase;" onclick="window.open('https://wa.me/yournumber', '_blank')">
                 Direct WhatsApp Order
             </button>
         </div>
@@ -939,22 +970,22 @@
 
     <!-- SOURCE TO PORT TIMELINE -->
     <section id="timeline-section" style="background: var(--bg-light);">
-        <h2 class="section-title">Why Partner With Us</h2>
+        <h2 class="section-title">Core Value Pillars</h2>
         <div class="timeline">
             <div class="timeline-step">
-                <i class="fas fa-microchip"></i>
+                <i class="fas fa-award"></i>
                 <p>Premium Material Standards</p>
-                <small style="display:block; margin-top:10px; font-size:12px; opacity:0.7;">BPA-Free Polymers</small>
+                <small style="display:block; font-size:14px; color: #555; line-height: 1.4;">High-density, food-safe, and BPA-free polymers designed for structural integrity.</small>
             </div>
             <div class="timeline-step">
-                <i class="fas fa-route"></i>
+                <i class="fas fa-map-marked-alt"></i>
                 <p>Strategic Local Supply Chain</p>
-                <small style="display:block; margin-top:10px; font-size:12px; opacity:0.7;">Direct Salalah Inventory</small>
+                <small style="display:block; font-size:14px; color: #555; line-height: 1.4;">Based directly in Salalah to eliminate delays and guarantee supply security.</small>
             </div>
             <div class="timeline-step">
-                <i class="fas fa-handshake"></i>
+                <i class="fas fa-briefcase"></i>
                 <p>Tailored Enterprise Solutions</p>
-                <small style="display:block; margin-top:10px; font-size:12px; opacity:0.7;">Scalable B2B Pricing</small>
+                <small style="display:block; font-size:14px; color: #555; line-height: 1.4;">Scalable pricing structures optimized for high-volume wholesale buyers.</small>
             </div>
         </div>
     </section>
@@ -963,14 +994,14 @@
     <section id="private-label" style="background: #fff;">
         <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 300px; padding: 40px; background: var(--primary-color); color: white; border-radius: 12px;">
-                <h2 style="color: var(--accent-color); margin-bottom: 20px;">Corporate Private Labeling</h2>
+                <h2 style="color: var(--accent-color); margin-bottom: 20px;">Private Label Solutions</h2>
                 <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;">
-                    Engineer your brand's physical presence. We provide end-to-end custom branding for hospitality and retail packaging, meeting strict regulatory and aesthetic standards.
+                    Engineer your brand's physical presence. Al Rasid provides end-to-end custom branding for hospitality and retail packaging.
                 </p>
                 <ul style="list-style: none; display: grid; gap: 10px;">
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> High-Resolution Branding Application</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Market-Specific Regulatory Compliance</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Bulk Distribution Optimized Packaging</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Custom Design & Printing</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Multi-size Packaging Options</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Regulatory Compliance Labeling</li>
                 </ul>
             </div>
             <div style="flex: 1; min-width: 300px;">
@@ -1010,12 +1041,12 @@
     <section id="about-us" style="background: #f0f4f1;">
         <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 300px;">
-                <h2 style="color: var(--primary-color); margin-bottom: 20px; font-size: 32px;">Corporate Statement</h2>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px; font-size: 32px;">About Us</h2>
                 <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 20px; font-style: italic;">
                     "Al Rasid United Trading Co. was established with a singular mission: to redefine the quality of plastic commodities available in the Dhofar region. We bridge the gap between high-manufacturing standards and local market accessibility.
                 </p>
                 <p style="font-size: 16px; line-height: 1.8; color: #444;">
-                    By prioritizing premium-grade, eco-conscious, and highly durable polymers, we support the operational efficiency of Salalah’s commercial sector. Integrity, reliability, and precision remain the cornerstones of our trading desk."
+                    By prioritizing premium-grade, eco-conscious, and highly durable polymers, we support the operational efficiency of Salalah’s commercial sector while elevating everyday convenience in local homes. Integrity, reliability, and precision remain the cornerstones of our trading desk."
                 </p>
             </div>
             <div style="flex: 1; min-width: 300px; background: var(--primary-color); padding: 40px; border-radius: 15px; color: white;">
@@ -1038,7 +1069,7 @@
 
     <!-- MAIN CONTAINER -->
     <div class="container" id="products-section">
-        <h2 class="section-title">Professional Product Categorization</h2>
+        <h2 class="section-title">Our Professional Portfolio</h2>
         <div class="products-grid" id="productsGrid">
             <!-- Products will be loaded here -->
         </div>
@@ -1087,13 +1118,13 @@
         <h2 class="section-title">Market Insights</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
             <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <span style="color: var(--primary-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">Technical Report</span>
+                <span style="color: var(--accent-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">Technical Standards</span>
                 <h3 style="margin: 10px 0; font-size: 18px;">Commercial Food Packaging & Catering Logistics</h3>
                 <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Engineered for presentation and preservation. Our tamper-evident leak-proof bowls meet strict hygienic standards.</p>
                 <a href="#" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Read Report <i class="fas fa-arrow-right"></i></a>
             </div>
             <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <span style="color: var(--primary-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">White Paper</span>
+                <span style="color: var(--accent-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">Enterprise Logistics</span>
                 <h3 style="margin: 10px 0; font-size: 18px;">Industrial & Environmental Management Plastics</h3>
                 <p style="font-size: 14px; color: #666; margin-bottom: 15px;">High-impact material handling equipment, including stackable crates and commercial-grade waste systems.</p>
                 <a href="#" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Read Report <i class="fas fa-arrow-right"></i></a>
@@ -1125,14 +1156,16 @@
 
     <footer style="background: var(--primary-color); color: white; padding: 60px 30px; text-align: center;">
         <div class="logo" style="justify-content: center; margin-bottom: 20px;">
-            <i class="fas fa-store"></i>
+            <i class="fas fa-store" style="color: var(--accent-color);"></i>
             <span>Al Rasid United Trading Co</span>
         </div>
-        <p style="opacity: 0.7; margin-bottom: 30px;">Your Trusted Partner in Global Commodity Trading.</p>
+        <p style="color: var(--accent-color); font-weight: bold; margin-bottom: 15px;">Premium Plastic Solutions — Salalah, Dhofar Governorate, Oman.</p>
+        <p style="opacity: 0.7; margin-bottom: 30px; font-size: 14px;">📍 Visit Our Showroom/Warehouse | 📞 Contact Corporate Sales | 💬 Fast WhatsApp Order Desk</p>
         <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px;">
-            <i class="fab fa-linkedin" style="font-size: 24px;"></i>
-            <i class="fab fa-facebook" style="font-size: 24px;"></i>
-            <i class="fab fa-twitter" style="font-size: 24px;"></i>
+            <i class="fab fa-linkedin" style="font-size: 24px; color: var(--accent-color);"></i>
+            <i class="fab fa-facebook" style="font-size: 24px; color: var(--accent-color);"></i>
+            <i class="fab fa-instagram" style="font-size: 24px; color: var(--accent-color);"></i>
+            <i class="fab fa-whatsapp" style="font-size: 24px; color: var(--accent-color);"></i>
         </div>
         <div style="font-size: 14px; opacity: 0.5;">
             &copy; 2024 Al Rasid United Trading Co. All rights reserved. | ISO 9001:2015 Certified
