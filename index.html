@@ -6,80 +6,6 @@
     <title>Al Rasid United Trading Co - Premium Products</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">    
     <style>
-        .account-order-item {
-            background: #f9f9f9;
-            border: 1px solid #eee;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 13px;
-            color: #333;
-        }
-
-        /* AUTH OVERLAY */
-        #authOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
-
-        .auth-card {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            color: #333;
-            max-width: 400px;
-            width: 90%;
-        }
-
-        .auth-form input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .auth-btn:hover {
-            background-color: var(--primary-light);
-        }
-
-        .auth-toggle {
-            margin-top: 15px;
-            font-size: 13px;
-            color: #666;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        .auth-toggle:hover {
-            color: var(--link-hover);
-        }
-
         :root {
             --primary-color: #1a472a;
             --primary-light: #2d5a3d;
@@ -801,23 +727,6 @@
     </style>
 </head>
 <body>
-    <!-- AUTHENTICATION OVERLAY -->
-    <div id="authOverlay" style="display: flex;">
-        <div class="auth-card">
-            <i class="fas fa-store" style="font-size: 50px; color: var(--primary-color); margin-bottom: 20px;"></i>
-            <h2 id="authTitle" style="margin-bottom: 10px;">Welcome Back</h2>
-            <p id="authSubtitle" style="color: #666; margin-bottom: 20px;">Please sign in to access Al Rasid Trading store.</p>
-            
-            <form class="auth-form" id="authForm" onsubmit="handleAuth(event)">
-                <input type="text" id="authUsername" placeholder="Username" required>
-                <input type="password" id="authPassword" placeholder="Password" required>
-                <button type="submit" class="auth-btn" id="authSubmitBtn">Sign In</button>
-            </form>
-            
-            <div class="auth-toggle" id="authToggle" onclick="toggleAuthMode()">Don't have an account? Register</div>
-        </div>
-    </div>
-
     <!-- HEADER -->
     <header>
         <div class="header-top">
@@ -831,17 +740,13 @@
             </div>
             <div id="google_translate_element"></div>
             <div class="header-links">
-                <button onclick="toggleAdmin()" id="adminNavBtn" class="hidden">
+                <button onclick="toggleAdmin()" id="adminNavBtn">
                     <i class="fas fa-cog"></i>
                     <span>Admin</span>
                 </button>
                 <button onclick="showSellItemModal()" id="sellNavBtn" class="hidden">
                     <i class="fas fa-tags"></i>
                     <span>Sell Item</span>
-                </button>
-                <button onclick="scrollToCommunity()">
-                    <i class="fas fa-users"></i>
-                    <span>Listings</span>
                 </button>
                 <button id="accountButton" onclick="showAccountModal()">
                     <i class="fas fa-user"></i>
@@ -875,10 +780,10 @@
         </div>
     </div>
 
-    <div class="container" id="communitySection">
+    <div class="container hidden" id="communitySection">
         <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-            <h2 style="margin: 0;">Community Listings</h2>
-            <button class="btn btn-primary" onclick="showSellItemModal()">Sell an Item</button>
+            <h2 style="margin: 0;">Admin Listings</h2>
+            <button class="btn btn-primary" onclick="showSellItemModal()">Add Admin Listing</button>
         </div>
         <div class="products-grid" id="communityGrid">
             <!-- Community listings will be loaded here -->
@@ -1069,6 +974,31 @@
         </div>
     </div>
 
+    <!-- AUTH MODAL -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="authModalTitle">Sign In</span>
+                <span class="close-btn" onclick="closeAuthModal()">×</span>
+            </div>
+            <form id="authForm" onsubmit="handleAuth(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="authUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="authPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="authSubmitBtn">Login</button>
+                <p style="text-align: center; margin-top: 15px; font-size: 14px;">
+                    <span id="authSwitchText">Don't have an account?</span>
+                    <a href="#" onclick="toggleAuthMode()" id="authSwitchLink" style="color: var(--primary-color); font-weight: bold;">Register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
     <!-- ACCOUNT MODAL -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
@@ -1097,8 +1027,8 @@
             </div>
 
             <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-primary" style="flex: 1;" onclick="logout()">Logout</button>
                 <button class="btn btn-secondary" style="flex: 1;" onclick="closeAccountModal()">Close</button>
-                <button class="btn btn-primary" style="flex: 1;" onclick="logoutAccount()">Logout</button>
             </div>
         </div>
     </div>
@@ -1124,126 +1054,20 @@
     <!-- SCRIPTS -->
     <script>
         const API_URL = 'http://localhost:3000/api';
-        let authMode = 'login';
         let currentUser = null;
+        let isLoginMode = true;
 
-        function toggleAuthMode() {
-            authMode = authMode === 'login' ? 'register' : 'login';
-            document.getElementById('authTitle').textContent = authMode === 'login' ? 'Welcome Back' : 'Create Account';
-            document.getElementById('authSubtitle').textContent = authMode === 'login' ? 'Please sign in to access Al Rasid Trading store.' : 'Join us to start shopping.';
-            document.getElementById('authSubmitBtn').textContent = authMode === 'login' ? 'Sign In' : 'Register';
-            document.getElementById('authToggle').textContent = authMode === 'login' ? "Don't have an account? Register" : "Already have an account? Sign In";
-        }
-
-        async function handleAuth(event) {
-            event.preventDefault();
-            const username = document.getElementById('authUsername').value;
-            const password = document.getElementById('authPassword').value;
-
-            try {
-                const response = await fetch(`${API_URL}/${authMode}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                const data = await response.json();
-
-                if (response.ok) {
-                    if (authMode === 'login') {
-                        localStorage.setItem('token', data.token);
-                        localStorage.setItem('user', JSON.stringify(data.user));
-                        initApp(data.user);
-                    } else {
-                        alert('Registration successful! Please login.');
-                        toggleAuthMode();
-                    }
-                } else {
-                    const errorMsg = data.error || 'Authentication failed';
-                    alert(errorMsg);
-                }
-            } catch (err) {
-                console.error('Connection Error:', err);
-                alert(`Could not connect to server at ${API_URL}. \n1. Ensure "node server.js" is running. \n2. Check the browser console (F12) for details.`);
-            }
-        }
-
-        function initApp(user) {
-            currentUser = user;
-            document.getElementById('authOverlay').style.display = 'none';
-            updateHeaderUser();
-            loadProducts();
-            loadOrders();
-            
-            // Role-based visibility
-            if (user.role === 'admin') {
-                document.getElementById('adminNavBtn').classList.remove('hidden');
-                document.getElementById('sellNavBtn').classList.remove('hidden');
-            } else {
-                document.getElementById('adminNavBtn').classList.add('hidden');
-                document.getElementById('sellNavBtn').classList.add('hidden');
-            }
-        }
-
-        // Auto login on load
+        // Initialize app on load
         window.addEventListener('load', () => {
-            const token = localStorage.getItem('token');
-            const user = localStorage.getItem('user');
-            if (token && user) {
-                initApp(JSON.parse(user));
-            } else {
-                document.getElementById('authOverlay').style.display = 'flex';
-            }
+            checkAuth();
+            loadProducts();
         });
-
-        function getAuthHeader() {
-            const token = localStorage.getItem('token');
-            return token ? { 'Authorization': `Bearer ${token}` } : {};
-        }
-
-        function logoutAccount() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            location.reload(); // Reload to show auth overlay
-        }
 
         // DATA
         let products = [];
         let cart = [];
         let orders = [];
         let currentProductModal = null;
-        
-        // LOAD PRODUCTS
-        async function loadProducts(filter = 'all') {
-            try {
-                const response = await fetch(`${API_URL}/items`, {
-                    headers: getAuthHeader()
-                });
-                products = await response.json();
-                
-                const grid = document.getElementById('productsGrid');
-                grid.innerHTML = '';
-                
-                let filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
-                
-                filteredProducts.forEach(product => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = `
-                        <div class="product-image" onclick="showProductModal('${product._id}')">${product.emoji}</div>
-                        <div class="product-info">
-                            <div class="product-name">${product.name}</div>
-                            <div class="product-price">$${product.price.toFixed(2)}</div>
-                            <div class="product-stock">Stock: ${product.stock}</div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary" onclick="addToCart('${product._id}')">Add to Cart</button>
-                            </div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-                loadCategories();
-            } catch (err) { console.error(err); }
-        }
 
         // LOAD CATEGORIES
         function loadCategories() {
@@ -1433,19 +1257,90 @@
             document.getElementById('cartSidebar').classList.toggle('active');
         }
 
+        // AUTHENTICATION LOGIC
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                fetch(`${API_URL}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+                .then(res => res.json())
+                .then(user => {
+                    if (user._id) {
+                        currentUser = user;
+                        updateUIForAuth();
+                        loadOrders();
+                    } else {
+                        logout();
+                    }
+                })
+                .catch(() => logout());
+            }
+        }
+
+        function showAuthModal() {
+            document.getElementById('authModal').classList.add('active');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            document.getElementById('authModalTitle').textContent = isLoginMode ? 'Sign In' : 'Register';
+            document.getElementById('authSubmitBtn').textContent = isLoginMode ? 'Login' : 'Register';
+            document.getElementById('authSwitchText').textContent = isLoginMode ? "Don't have an account?" : "Already have an account?";
+            document.getElementById('authSwitchLink').textContent = isLoginMode ? 'Register' : 'Login';
+        }
+
+        async function handleAuth(event) {
+            event.preventDefault();
+            const username = document.getElementById('authUsername').value;
+            const password = document.getElementById('authPassword').value;
+            const endpoint = isLoginMode ? '/auth/login' : '/auth/register';
+
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    currentUser = data.user;
+                    closeAuthModal();
+                    updateUIForAuth();
+                    loadOrders();
+                    showNotification(isLoginMode ? 'Welcome back!' : 'Account created!');
+                } else {
+                    alert(data.error || 'Authentication failed');
+                }
+            } catch (err) { alert('Server error'); }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            currentUser = null;
+            updateUIForAuth();
+            location.reload();
+        }
+
         function toggleAdmin() {
-            document.getElementById('adminPanel').classList.toggle('active');
-            document.getElementById('adminOverlay').classList.toggle('active');
             const adminPanel = document.getElementById('adminPanel');
             const adminOverlay = document.getElementById('adminOverlay');
-            const ADMIN_PASSWORD = "admin"; // !!! WARNING: This is NOT secure for production !!!
+            const ADMIN_PASSWORD = "1029384756";
 
             if (!adminPanel.classList.contains('active')) {
                 const password = prompt("Enter Admin Password:");
                 if (password === ADMIN_PASSWORD) {
                     adminPanel.classList.add('active');
                     adminOverlay.classList.add('active');
-                } else if (password !== null) { // If user didn't click cancel
+                    loadOrders(); // Fetch fresh data
+                    showAdminSection('orders'); // Jump straight to orders
+                } else if (password !== null) {
                     alert("Incorrect Password!");
                 }
             } else {
@@ -1468,6 +1363,24 @@
             document.getElementById('checkoutModal').classList.remove('active');
         }
 
+        function updateUIForAuth() {
+            const accountBtnText = document.getElementById('accountButtonText');
+            const sellBtn = document.getElementById('sellNavBtn');
+            const communitySection = document.getElementById('communitySection');
+
+            if (currentUser) {
+                accountBtnText.textContent = currentUser.username;
+                if (currentUser.role === 'admin') {
+                    sellBtn.classList.remove('hidden');
+                    communitySection.classList.remove('hidden');
+                }
+            } else {
+                accountBtnText.textContent = 'Sign In';
+                sellBtn.classList.add('hidden');
+                communitySection.classList.add('hidden');
+            }
+        }
+
         async function completeCheckout(event) {
             event.preventDefault();
             
@@ -1479,17 +1392,19 @@
             const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
             
             const orderData = {
+                customerName: name,
+                phone: phone,
+                address: address,
+                dropOffLocation: dropOffLocation,
                 items: cart.map(item => ({ productId: item._id, name: item.name, quantity: item.quantity, price: item.price })),
-                total: parseFloat(total)
+                total: parseFloat(total),
+                userId: currentUser ? currentUser._id : null
             };
 
             try {
                 const response = await fetch(`${API_URL}/orders`, {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        ...getAuthHeader()
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(orderData)
                 });
 
@@ -1505,23 +1420,11 @@
 
         async function loadOrders() {
             try {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    orders = []; // No user, no orders
-                    renderOrders();
-                    updateDashboard();
-                    return;
-                }
-                const response = await fetch(`${API_URL}/orders`, {
-                    headers: getAuthHeader()
-                });
+                const response = await fetch(`${API_URL}/orders`);
                 orders = await response.json();
-            } catch (err) {
-                console.error('Error loading orders:', err);
-                orders = [];
-            }
-            renderOrders();
-            updateDashboard();
+                renderOrders();
+                updateDashboard();
+            } catch (err) { console.error(err); }
         }
 
         function renderOrders() {
@@ -1534,13 +1437,26 @@
             }
 
             ordersList.innerHTML = orders.map(order => {
-                const itemsText = order.items.map(item => `${item.name} x${item.quantity} ($${item.price.toFixed(2)})`).join(', ');
+                const itemsText = order.items.map(item => `• ${item.name} (x${item.quantity})`).join('<br>');
                 return `
-                    <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 12px; margin-bottom: 12px; color: white;">
-                        <strong>Order #${order._id.substring(0,8)}</strong> - ${new Date(order.createdAt).toLocaleDateString()}<br>
-                        <strong>Items:</strong> ${itemsText}<br>
-                        <strong>Total:</strong> $${order.total}<br>
-                        <strong>Status:</strong> ${order.status}
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; margin-bottom: 8px;">
+                            <strong>Order #${order._id.substring(order._id.length - 6)}</strong>
+                            <span style="font-size: 0.85em; opacity: 0.8;">${new Date(order.createdAt).toLocaleString()}</span>
+                        </div>
+                        <p><strong>Customer:</strong> ${order.customerName}</p>
+                        <p><strong>Phone:</strong> <a href="tel:${order.phone}" style="color: var(--accent-color); text-decoration: none;">${order.phone}</a></p>
+                        <p><strong>Drop-off Location:</strong> <span style="color: #ffcc00;">${order.dropOffLocation}</span></p>
+                        
+                        <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                            <strong>Items Ordered:</strong><br>
+                            <span style="font-size: 0.9em;">${itemsText}</span>
+                        </div>
+                        
+                        <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <span>Status: <span style="color: #4caf50;">${order.status}</span></span>
+                            <strong>Total: $${order.total.toFixed(2)}</strong>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -1553,14 +1469,6 @@
             }
         }
 
-        function updateHeaderUser() {
-            const buttonText = document.getElementById('accountButtonText');
-            if (currentUser) {
-                buttonText.textContent = currentUser.username || 'Account';
-            } else {
-                buttonText.textContent = 'Account';
-            }
-        }
         // COMMUNITY SELLER FEATURES
         let communityItems = [];
 
@@ -1581,15 +1489,15 @@ const name = document.getElementById('sellItemName').value;
                     emoji,
                     description,
                     stock: 1, // Community items usually have 1 stock
-                    seller: currentUser ? currentUser.username : 'Community'
+                    seller: 'Admin'
                 };
 
             try {
                 const response = await fetch(`${API_URL}/items`, {
                     method: 'POST',
-                    headers: {
+                    headers: { 
                         'Content-Type': 'application/json',
-                        ...getAuthHeader()
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
                     body: JSON.stringify(newItemData)
                 });
@@ -1693,41 +1601,17 @@ const name = document.getElementById('sellItemName').value;
         }
 
 
-        function renderUserOrderHistory() {
-            const userOrderHistoryDiv = document.getElementById('userOrderHistory');
-            if (!userOrderHistoryDiv) return;
-
-            if (!currentUser || orders.length === 0) {
-                userOrderHistoryDiv.innerHTML = '<p style="text-align: center; color: #999;">No orders found.</p>';
+        function showAccountModal() {
+            if (!currentUser) {
+                showAuthModal();
                 return;
             }
-            
-            userOrderHistoryDiv.innerHTML = orders.map(order => {
-                const itemsText = order.items.map(item => `${item.name} x${item.quantity}`).join(', ');
-                return `
-                    <div class="account-order-item">
-                        <strong>Order #${order._id.substring(0, 8)}</strong> - ${new Date(order.createdAt).toLocaleDateString()}<br>
-                        Items: ${itemsText}<br>
-                        Total: $${order.total.toFixed(2)}<br>
-                        Status: ${order.status}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function showAccountModal() {
-            const name = currentUser?.username || 'Guest User';
-            const status = currentUser ? `Signed in as ${currentUser.role}` : 'Guest';
-            const createdAt = currentUser ? new Date(currentUser.createdAt).toLocaleDateString() : 'N/A'; // Assuming createdAt is available
-
-            document.getElementById('accountName').textContent = name;
-            document.getElementById('accountEmail').textContent = currentUser?.email || 'Not available'; // Assuming email is not stored in current user object
-            document.getElementById('accountStatus').textContent = status;
-            document.getElementById('totalOrders').textContent = orders.length; // Orders array is already filtered for current user
-            document.getElementById('itemsListed').textContent = products.filter(p => p.seller === currentUser?.username).length;
-            document.getElementById('accountCreated').textContent = createdAt;
+            document.getElementById('accountName').textContent = currentUser.username;
+            document.getElementById('accountEmail').textContent = currentUser.role === 'admin' ? 'Administrator' : 'Customer';
+            document.getElementById('accountStatus').textContent = 'Active';
+            document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('itemsListed').textContent = products.length;
             document.getElementById('accountModal').classList.add('active');
-            renderUserOrderHistory(); // Render user-specific orders
         }
 
         function closeAccountModal() {
