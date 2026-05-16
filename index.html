@@ -925,8 +925,8 @@
             <button class="btn btn-primary" style="padding: 15px 40px; font-size: 16px; border-radius: 5px; background-color: var(--accent-color); color: white; font-weight: bold; border: none; text-transform: uppercase;" onclick="document.getElementById('rfp-portal').scrollIntoView()">
                 Request Corporate Quote
             </button>
-            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 16px; border-radius: 5px; background: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); font-weight: bold; text-transform: uppercase;" onclick="window.open('https://wa.me/968XXXXXXXX?text=' + encodeURIComponent('Hello Al Rasid, I would like to inquire about your premium plastic products.'), '_blank')">
-                Direct WhatsApp Order
+            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 16px; border-radius: 5px; background: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); font-weight: bold; text-transform: uppercase;" onclick="showSellItemModal()">
+                Sell Item
             </button>
         </div>
     </div>
@@ -1465,9 +1465,7 @@
                             <i class="fas fa-file-pdf"></i> Download Tech Sheet</a>
                         <div class="product-price">$${p.price.toFixed(2)}</div>
                         <div class="product-actions">
-                            <button class="btn btn-primary" style="background-color: var(--accent-color);" onclick="window.open('https://wa.me/968XXXXXXXX?text=' + encodeURIComponent('Hello Al Rasid, I am interested in ' + '${p.name}' + '. Could you provide a quote?'), '_blank')">
-                                <i class="fab fa-whatsapp"></i> Inquire Now
-                            </button>
+                            <button class="btn btn-primary" onclick="addToCart('${p._id}')">Add to Cart</button>
                         </div>
                     </div>`;
                 grid.appendChild(card);
@@ -1784,6 +1782,7 @@
 
         function updateUIForAuth() {
             const accountBtnText = document.getElementById('accountButtonText');
+            const sellBtn = document.getElementById('sellNavBtn');
             if (currentUser) {
                 accountBtnText.textContent = currentUser.username;
                 if (currentUser.role === 'admin') {
