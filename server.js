@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(express.json());
@@ -22,6 +24,16 @@ mongoose.connect(MONGODB_URI)
 app.get('/', (req, res) => res.send('Al Rasid API is running...'));
 
 // 2. MODELS
+
+// User Model
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role: { type: String, default: 'customer' }, // 'admin' or 'customer'
+    createdAt: { type: Date, default: Date.now }
+});
+
+const User = mongoose.model('User', userSchema);
 
 // Item Model
 const itemSchema = new mongoose.Schema({
@@ -49,6 +61,7 @@ const orderSchema = new mongoose.Schema({
         price: Number
     }],
     total: Number,
+    userId: mongoose.Schema.Types.ObjectId,
     status: { type: String, default: 'Pending' },
     createdAt: { type: Date, default: Date.now }
 });
@@ -56,6 +69,40 @@ const orderSchema = new mongoose.Schema({
 const Order = mongoose.model('Order', orderSchema);
 
 // 4. ROUTES
+
+// Auth Routes
+app.post('/api/auth/register', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new User({ username, password: hashedPassword });
+        await user.save();
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'secret');
+        res.status(201).send({ token, user: { _id: user._id, username: user.username, role: user.role } });
+    } catch (e) { res.status(400).send({ error: 'Username already exists' }); }
+});
+
+app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            return res.status(401).send({ error: 'Invalid credentials' });
+        }
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'secret');
+        res.send({ token, user: { _id: user._id, username: user.username, role: user.role } });
+    } catch (e) { res.status(500).send(e); }
+});
+
+app.get('/api/auth/me', async (req, res) => {
+    try {
+        const token = req.header('Authorization').replace('Bearer ', '');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+        const user = await User.findById(decoded.id);
+        if (!user) throw new Error();
+        res.send({ _id: user._id, username: user.username, role: user.role });
+    } catch (e) { res.status(401).send({ error: 'Please authenticate' }); }
+});
 
 // Get Shop Items (Public)
 app.get('/api/items', async (req, res) => {

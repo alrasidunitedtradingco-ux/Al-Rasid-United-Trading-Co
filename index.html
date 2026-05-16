@@ -1437,34 +1437,20 @@
             }
 
             ordersList.innerHTML = orders.map(order => {
-                const itemsText = order.items.map(item => `• ${item.name} (x${item.quantity})`).join('<br>');
-                return `
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.2);">
-                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; margin-bottom: 8px;">
-                            <strong>Order #${order._id.substring(order._id.length - 6)}</strong>
-                            <span style="font-size: 0.85em; opacity: 0.8;">${new Date(order.createdAt).toLocaleString()}</span>
-                        </div>
-                        <p><strong>Customer:</strong> ${order.customerName}</p>
-                        <p><strong>Phone:</strong> <a href="tel:${order.phone}" style="color: var(--accent-color); text-decoration: none;">${order.phone}</a></p>
-                        <p><strong>Drop-off Location:</strong> <span style="color: #ffcc00;">${order.dropOffLocation}</span></p>
-                        
-                        <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 5px;">
-                            <strong>Items Ordered:</strong><br>
-                            <span style="font-size: 0.9em;">${itemsText}</span>
-                        </div>
-                        
-                        <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
-                            <span>Status: <span style="color: #4caf50;">${order.status}</span></span>
-                            <strong>Total: $${order.total.toFixed(2)}</strong>
-                        </div>
+                const itemsan>${item.name} x${item.quantity}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
                     </div>
-                `;
-            }).join('');
-        }
+                `).join('');
 
-        function updateDashboard() {
-            if(document.getElementById('dashboardTotalOrders')) {
-                document.getElementById('dashboardTotalOrders').textContent = orders.length;
+                return `
+                    <div
+                        
+                            <div style="color: var(--accent-color); font-weight: bold; margin: 5px 0;">
+                              
+                         ;     <div style=ev: 12px;">ty bpxOrdered</div>
+                            ${itemsHtml}
+                        </divien; align-items: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">
+                         dTotalOrders').textContent = orders.length;
                 document.getElementById('dashboardCommunityItems').textContent = products.length;
             }
         }
@@ -1474,11 +1460,7 @@
 
         async function addSellItem(event) {
             event.preventDefault();
-
-const name = document.getElementById('sellItemName').value;
-                const category = document.getElementById('sellItemCategory').value;
-                const emoji = document.getElementById('sellItemEmoji').value;
-                const photoUrl = document.getElementById('sellItemPhoto').value.trim();
+ue.trim();
                 const descriptionInput = document.getElementById('sellItemDescription').value.trim();
                 const description = descriptionInput || generateSellDescription(name, category);
 
