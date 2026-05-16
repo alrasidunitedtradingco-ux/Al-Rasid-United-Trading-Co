@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al Rasid United Trading Co - Premium Products</title>
+    <title>Al Rasid United Trading Co | Premium Global Commodity Trading</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">    
     <style>
         :root {
@@ -132,6 +132,20 @@
             top: 0px !important;
         }
 
+        /* NEW SECTIONS STYLING */
+        section {
+            padding: 80px 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            font-size: 32px;
+        }
+
         .header-links a:hover, .header-links button:hover {
             color: var(--link-hover);
         }
@@ -159,6 +173,7 @@
             gap: 20px;
             overflow-x: auto;
             border-bottom: 1px solid #ddd;
+            justify-content: center;
         }
 
         .categories a {
@@ -168,6 +183,7 @@
             padding: 5px 10px;
             border-radius: 5px;
             transition: all 0.3s;
+            font-weight: 500;
         }
 
         .categories a:hover, .categories a.active {
@@ -179,18 +195,25 @@
         .banner {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
             color: white;
-            padding: 60px 30px;
+            padding: 100px 30px;
             text-align: center;
         }
 
         .banner h1 {
             font-size: 36px;
             margin-bottom: 10px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .banner p {
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* PRODUCTS SECTION */
@@ -231,6 +254,12 @@
             justify-content: center;
             font-size: 80px;
             overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .product-info {
@@ -597,6 +626,55 @@
             }
         }
 
+        /* WHY CHOOSE US GRID */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-item i {
+            font-size: 40px;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* WHATSAPP WIDGET */
+        .whatsapp-widget {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            background-color: #25d366;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 4000;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -744,7 +822,11 @@
                     <i class="fas fa-cog"></i>
                     <span>Admin</span>
                 </button>
-                <button onclick="showSellItemModal()" id="sellNavBtn" class="hidden">
+                <a href="#about-us">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <button onclick="showSellItemModal()" id="sellNavBtn">
                     <i class="fas fa-tags"></i>
                     <span>Sell Item</span>
                 </button>
@@ -768,17 +850,136 @@
 
     <!-- BANNER -->
     <div class="banner">
-        <h1>Welcome to Al Rasid United Trading Co</h1>
-        <p>Premium Products | Fast Delivery | Best Prices</p>
+        <h1>Premium Global Trading, Delivered with Integrity.</h1>
+        <p>Al Rasid United Trading Co. connects the world’s finest agricultural crops, spices, and premium commodities directly to your business.</p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn btn-primary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px;" onclick="document.getElementById('products-section').scrollIntoView()">
+                Explore Our Products
+            </button>
+            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background: white;" onclick="document.getElementById('quote-form').scrollIntoView()">
+                Request a Quote
+            </button>
+        </div>
     </div>
 
+    <!-- WHY CHOOSE US -->
+    <section id="why-choose-us" style="background: white;">
+        <h2 class="section-title">Why Choose Us</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <i class="fas fa-award"></i>
+                <h3>Uncompromised Quality</h3>
+                <p>Sourced from the finest global farms and manufacturers, passing strict quality control.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-shipping-fast"></i>
+                <h3>Reliable Logistics</h3>
+                <p>We strictly adhere to organized dates and timelines. Your supply chain never stops.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-seedling"></i>
+                <h3>Diverse Portfolio</h3>
+                <p>From premium coffee and select spices to high-grade agricultural products.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h3>Competitive Pricing</h3>
+                <p>Premium products don't have to mean unreasonable costs. We offer unmatched market value.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section id="about-us" style="background: #f0f4f1;">
+        <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px; font-size: 32px;">Bridging the Gap in Global Trade</h2>
+                <p style="font-size: 18px; line-height: 1.8; color: #444; margin-bottom: 20px;">
+                    At Al Rasid United Trading Co., we have built a remarkable presence in both local and global markets through years of dedicated importing and exporting experience. We bridge the gap between premium global producers and businesses that refuse to compromise on quality.
+                </p>
+                <p style="font-size: 18px; line-height: 1.8; color: #444;">
+                    Backed by a team of industry experts and a robust logistics network, we ensure that every shipment meets international standards and arrives exactly when promised.
+                </p>
+            </div>
+            <div style="flex: 1; min-width: 300px; background: var(--primary-color); padding: 40px; border-radius: 15px; color: white;">
+                <h3 style="margin-bottom: 20px;"><i class="fas fa-check-circle"></i> Our Standards</h3>
+                <ul style="list-style: none; display: grid; gap: 15px;">
+                    <li><i class="fas fa-certificate"></i> ISO Certified Quality Control</li>
+                    <li><i class="fas fa-globe"></i> Global Sourcing Network</li>
+                    <li><i class="fas fa-box"></i> Premium Bulk Packaging</li>
+                    <li><i class="fas fa-calendar-check"></i> On-time Delivery Guarantee</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHATSAPP WIDGET -->
+    <a href="https://wa.me/yournumber" class="whatsapp-widget" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span>Chat with our Trading Desk</span>
+    </a>
+
     <!-- MAIN CONTAINER -->
-    <div class="container">
-        <h2 style="margin-bottom: 20px;">Featured Products</h2>
+    <div class="container" id="products-section">
+        <h2 class="section-title">Our Premium Product Catalogue</h2>
         <div class="products-grid" id="productsGrid">
             <!-- Products will be loaded here -->
         </div>
     </div>
+
+    <!-- BULK QUOTE FORM -->
+    <section id="quote-form" style="background: #fff;">
+        <div style="max-width: 700px; margin: 0 auto; background: #f9f9f9; padding: 40px; border-radius: 15px; border: 1px solid #ddd;">
+            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 10px;">Request a Bulk Quote</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">Get specialized wholesale pricing for your business needs.</p>
+            <form onsubmit="event.preventDefault(); alert('Quote request sent! Our trading desk will contact you shortly.');">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Product of Interest</label>
+                    <select style="width:100%; padding:10px; border-radius:5px; border:1px solid #ddd;">
+                        <option>Coffee & Cardamom</option>
+                        <option>Spices, Herbs & Legumes</option>
+                        <option>Premium Rice & Grains</option>
+                        <option>Nuts & Dry Fruits</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Required Volume (Tons/KG)</label>
+                    <input type="text" placeholder="e.g. 50 Tons" required>
+                </div>
+                <div class="form-group">
+                    <label>Additional Requirements</label>
+                    <textarea rows="4" placeholder="Any specific origin or certification requirements?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 16px;">Submit Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <footer style="background: var(--primary-color); color: white; padding: 60px 30px; text-align: center;">
+        <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+            <i class="fas fa-store"></i>
+            <span>Al Rasid United Trading Co</span>
+        </div>
+        <p style="opacity: 0.7; margin-bottom: 30px;">Your Trusted Partner in Global Commodity Trading.</p>
+        <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px;">
+            <i class="fab fa-linkedin" style="font-size: 24px;"></i>
+            <i class="fab fa-facebook" style="font-size: 24px;"></i>
+            <i class="fab fa-twitter" style="font-size: 24px;"></i>
+        </div>
+        <div style="font-size: 14px; opacity: 0.5;">
+            &copy; 2024 Al Rasid United Trading Co. All rights reserved. | ISO 9001:2015 Certified
+        </div>
+    </footer>
 
     <div class="container hidden" id="communitySection">
         <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
@@ -837,6 +1038,8 @@
                 <h4>Manage Products</h4>
                 <p>Click "Add New Product" in the admin sidebar to add items.</p>
                 <button class="btn btn-primary" onclick="showAddProductModal()" style="width: 100%;">Add New Product</button>
+                <button class="btn btn-primary" onclick="showAddProductModal()" style="width: 100%; margin-bottom: 20px;">Add New Product</button>
+                <div id="adminProductsList"></div>
             </div>
             <div class="admin-section hidden" id="ordersSection">
                 <h4>Orders</h4>
@@ -894,6 +1097,40 @@
                     <textarea id="productDescription" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- EDIT PRODUCT MODAL -->
+    <div class="modal" id="editProductModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Edit Product</span>
+                <span class="close-btn" onclick="closeEditProductModal()">×</span>
+            </div>
+            <form onsubmit="updateProduct(event)">
+                <input type="hidden" id="editProductId">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="editProductName" required>
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number" id="editProductPrice" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="editProductCategory" required>
+                </div>
+                <div class="form-group">
+                    <label>Emoji (for image)</label>
+                    <input type="text" id="editProductEmoji" placeholder="e.g., 📱" required>
+                </div>
+                <div class="form-group">
+                    <label>Stock</label>
+                    <input type="number" id="editProductStock" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Changes</button>
             </form>
         </div>
     </div>
@@ -957,13 +1194,9 @@
                     <input type="text" id="sellItemCategory" required>
                 </div>
                 <div class="form-group">
-                    <label>Photo URL</label>
-                    <input type="url" id="sellItemPhoto" placeholder="https://example.com/photo.jpg">
-                    <small style="color: #666; display: block; margin-top: 6px;">Optional: paste a photo link. If left empty, a default placeholder is used.</small>
-                </div>
-                <div class="form-group">
-                    <label>Emoji</label>
-                    <input type="text" id="sellItemEmoji" placeholder="e.g. 📦">
+                    <label>Product Photo</label>
+                    <input type="file" id="sellItemFile" accept="image/*" required>
+                    <small style="color: #666; display: block; margin-top: 6px;">Upload a clear image of your item.</small>
                 </div>
                 <div class="form-group">
                     <label>Description</label>
@@ -1063,6 +1296,40 @@
             loadProducts();
         });
 
+        async function loadProducts(category = 'all') {
+            try {
+                const response = await fetch(`${API_URL}/items`);
+                products = await response.json();
+                renderProducts(category);
+                if (category === 'all') {
+                    const bar = document.getElementById('categoriesBar');
+                    bar.innerHTML = '<a href="#" class="active" onclick="filterByCategory(\'all\')">All Products</a>';
+                    loadCategories();
+                }
+            } catch (err) { console.error('Error loading products:', err); }
+        }
+
+        function renderProducts(category = 'all') {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            const items = category === 'all' ? products : products.filter(p => p.category === category);
+            items.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                const imageHtml = p.image ? `<img src="${p.image}" alt="${p.name}">` : p.emoji;
+                card.innerHTML = `
+                    <div class="product-image" onclick="showProductModal('${p._id}')">${imageHtml}</div>
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">$${p.price.toFixed(2)}</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCart('${p._id}')">Add to Cart</button>
+                        </div>
+                    </div>`;
+                grid.appendChild(card);
+            });
+        }
+
         // DATA
         let products = [];
         let cart = [];
@@ -1135,13 +1402,18 @@
         }
 
         // PRODUCT MODAL
+        function showSellItemModal() {
+            document.getElementById('sellItemModal').classList.add('active');
+        }
+
         function showProductModal(productId) {
             const product = products.find(p => p._id === productId);
             currentProductModal = product;
             
             const body = document.getElementById('productModalBody');
+            const imageHtml = product.image ? `<img src="${product.image}" style="width:100%; max-height:300px; object-fit:contain; border-radius:8px;">` : `<div style="font-size: 80px;">${product.emoji}</div>`;
             body.innerHTML = `
-                <div style="text-align: center; font-size: 80px; margin-bottom: 20px;">${product.emoji}</div>
+                <div style="text-align: center; margin-bottom: 20px;">${imageHtml}</div>
                 <h2 style="color: #1a472a; margin-bottom: 10px;">${product.name}</h2>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
                     <div>
@@ -1487,11 +1759,25 @@
         // COMMUNITY SELLER FEATURES
         let communityItems = [];
 
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
         async function addSellItem(event) {
             event.preventDefault();
             const name = document.getElementById('sellItemName').value.trim();
             const category = document.getElementById('sellItemCategory').value.trim();
-            const emoji = document.getElementById('sellItemEmoji').value.trim() || '📦';
+            const fileInput = document.getElementById('sellItemFile');
+            
+            let imageData = null;
+            if (fileInput.files.length > 0) {
+                imageData = await fileToBase64(fileInput.files[0]);
+            }
 
                 const descriptionInput = document.getElementById('sellItemDescription').value.trim();
                 const description = descriptionInput || generateSellDescription(name, category);
@@ -1500,7 +1786,8 @@
                     name,
                     price: parseFloat(document.getElementById('sellItemPrice').value),
                     category,
-                    emoji,
+                    image: imageData,
+                    emoji: '📦', // Default fallback
                     description,
                     stock: 1, // Community items usually have 1 stock
                     seller: 'Admin'
@@ -1539,8 +1826,9 @@
             products.filter(p => p.seller !== 'Admin').forEach(item => { // Filter for community items
                 const card = document.createElement('div');
                 card.className = 'product-card';
+                const imageHtml = item.image ? `<img src="${item.image}" alt="${item.name}">` : (item.emoji || '📦');
                 card.innerHTML = `
-                    <div class="product-image">${item.emoji || '📦'}</div>
+                    <div class="product-image">${imageHtml}</div>
                     <div class="product-info">
                         <div class="product-name">${item.name}</div>
                         <div class="product-price">$${item.price.toFixed(2)}</div>
@@ -1651,12 +1939,118 @@
                 updateDashboard();
             } else if (section === 'products') {
                 document.getElementById('productsSection').classList.add('active');
+                loadAdminProducts();
             } else if (section === 'orders') {
                 document.getElementById('ordersSection').classList.add('active');
                 renderOrders();
             } else if (section === 'reports') {
                 document.getElementById('reportsSection').classList.add('active');
             }
+        }
+
+        async function loadAdminProducts() {
+            const list = document.getElementById('adminProductsList');
+            if (!list) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/items`);
+                const items = await response.json();
+                products = items; 
+                
+                if (items.length === 0) {
+                    list.innerHTML = '<p style="padding: 20px; opacity: 0.6; text-align: center;">No products listed yet.</p>';
+                    return;
+                }
+
+                list.innerHTML = items.map(item => `
+                    <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #eee; border-radius: 4px; overflow: hidden;">
+                                ${item.image ? `<img src="${item.image}" style="width:100%; height:100%; object-fit:cover;">` : item.emoji}
+                            </span>
+                            <div>
+                                <div style="font-weight: bold; color: white;">${item.name}</div>
+                                <div style="font-size: 0.85em; opacity: 0.7; color: white;">$${item.price.toFixed(2)} | Stock: ${item.stock}</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="openEditProductModal('${item._id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px; color: #ff4d4d;" onclick="deleteProduct('${item._id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) { console.error(err); }
+        }
+
+        function openEditProductModal(productId) {
+            const product = products.find(p => p._id === productId);
+            if (!product) return;
+
+            document.getElementById('editProductId').value = product._id;
+            document.getElementById('editProductName').value = product.name;
+            document.getElementById('editProductPrice').value = product.price;
+            document.getElementById('editProductCategory').value = product.category;
+            document.getElementById('editProductEmoji').value = product.emoji;
+            document.getElementById('editProductStock').value = product.stock;
+
+            document.getElementById('editProductModal').classList.add('active');
+        }
+
+        function closeEditProductModal() {
+            document.getElementById('editProductModal').classList.remove('active');
+        }
+
+        async function updateProduct(event) {
+            event.preventDefault();
+            const id = document.getElementById('editProductId').value;
+            const updatedData = {
+                name: document.getElementById('editProductName').value,
+                price: parseFloat(document.getElementById('editProductPrice').value),
+                category: document.getElementById('editProductCategory').value,
+                emoji: document.getElementById('editProductEmoji').value,
+                stock: parseInt(document.getElementById('editProductStock').value)
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/items/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(updatedData)
+                });
+
+                if (response.ok) {
+                    showNotification('✓ Product updated!');
+                    closeEditProductModal();
+                    loadAdminProducts();
+                    if (typeof loadProducts === 'function') loadProducts(); 
+                }
+            } catch (err) { alert('Update failed'); }
+        }
+
+        async function deleteProduct(productId) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+
+            try {
+                const response = await fetch(`${API_URL}/items/${productId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+
+                if (response.ok) {
+                    showNotification('✓ Product deleted');
+                    loadAdminProducts();
+                    if (typeof loadProducts === 'function') loadProducts();
+                }
+            } catch (err) { alert('Delete failed'); }
         }
 
         function showAddProductModal() {
@@ -1695,6 +2089,7 @@
                     closeAddProductModal();
                     event.target.reset();
                     loadProducts(); // Reload all products
+                    loadAdminProducts();
                 } else {
                     alert('Failed to add product: ' + (await response.json()).error);
                 }

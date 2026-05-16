@@ -41,6 +41,7 @@ const itemSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     category: { type: String, required: true },
     emoji: { type: String, default: '📦' },
+    image: { type: String },
     description: { type: String },
     stock: { type: Number, default: 0 },
     seller: { type: String, default: 'Admin' }
