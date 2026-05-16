@@ -122,6 +122,26 @@ app.post('/api/items', async (req, res) => {
 });
 
 // Place Order (Authenticated Customers)
+app.put('/api/items/:id', async (req, res) => {
+    try {
+        const item = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!item) return res.status(404).send({ error: 'Item not found' });
+        res.send(item);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
+
+app.delete('/api/items/:id', async (req, res) => {
+    try {
+        const item = await Item.findByIdAndDelete(req.params.id);
+        if (!item) return res.status(404).send({ error: 'Item not found' });
+        res.send(item);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+});
+
 app.post('/api/orders', async (req, res) => {
     try {
         const order = new Order(req.body);

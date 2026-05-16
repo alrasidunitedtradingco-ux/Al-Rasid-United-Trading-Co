@@ -1338,6 +1338,9 @@
                 if (password === ADMIN_PASSWORD) {
                     adminPanel.classList.add('active');
                     adminOverlay.classList.add('active');
+                    // Reveal Selling features when password is correct
+                    document.getElementById('sellNavBtn').classList.remove('hidden');
+                    document.getElementById('communitySection').classList.remove('hidden');
                     loadOrders(); // Fetch fresh data
                     showAdminSection('orders'); // Jump straight to orders
                 } else if (password !== null) {
@@ -1486,7 +1489,10 @@
 
         async function addSellItem(event) {
             event.preventDefault();
-ue.trim();
+            const name = document.getElementById('sellItemName').value.trim();
+            const category = document.getElementById('sellItemCategory').value.trim();
+            const emoji = document.getElementById('sellItemEmoji').value.trim() || '📦';
+
                 const descriptionInput = document.getElementById('sellItemDescription').value.trim();
                 const description = descriptionInput || generateSellDescription(name, category);
 
