@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0F4C3A; /* Deep Emerald Green */
+            --primary-color: #0F4C3A; /* Deep Emerald Green (Corporate) */
             --primary-light: #16644f;
             --accent-color: #D4AF37;  /* Metallic Champagne Gold */
             --accent-hover: #b8860b;
@@ -694,7 +694,7 @@
         /* WHY CHOOSE US GRID */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin-top: 20px;
         }
@@ -891,10 +891,6 @@
                     <i class="fas fa-info-circle"></i>
                     <span>About Us</span>
                 </a>
-                <button onclick="showSellItemModal()" id="sellNavBtn" class="hidden">
-                    <i class="fas fa-tags"></i>
-                    <span>Sell Item</span>
-                </button>
                 <button id="accountButton" onclick="showAccountModal()">
                     <i class="fas fa-user"></i>
                     <span id="accountButtonText">Account</span>
@@ -910,7 +906,11 @@
 
     <!-- CATEGORIES -->
     <div class="categories" id="categoriesBar">
-        <a href="#" class="active" onclick="filterByCategory('all')">All Products</a>
+        <a href="#" class="active" onclick="filterByCategory('all', this)">All Products</a>
+        <a href="#" onclick="filterByCategory('Commercial Food Packaging', this)">Commercial Food Packaging</a>
+        <a href="#" onclick="filterByCategory('Home & Kitchen Organization', this)">Home & Kitchen Organization</a>
+        <a href="#" onclick="filterByCategory('Industrial & Environmental Management', this)">Industrial & Environmental Management</a>
+        <a href="#" onclick="filterByCategory('Custom Solutions', this)">Custom Solutions</a>
     </div>
 
     <!-- BANNER -->
@@ -921,7 +921,7 @@
             <button class="btn btn-primary" style="padding: 15px 40px; font-size: 16px; border-radius: 5px; background-color: var(--accent-color); color: white; font-weight: bold; border: none; text-transform: uppercase;" onclick="document.getElementById('rfp-portal').scrollIntoView()">
                 Request Corporate Quote
             </button>
-            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 16px; border-radius: 5px; background: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); font-weight: bold; text-transform: uppercase;" onclick="window.open('https://wa.me/yournumber', '_blank')">
+            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 16px; border-radius: 5px; background: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); font-weight: bold; text-transform: uppercase;" onclick="window.open('https://wa.me/968XXXXXXXX?text=' + encodeURIComponent('Hello Al Rasid, I would like to inquire about your premium plastic products.'), '_blank')">
                 Direct WhatsApp Order
             </button>
         </div>
@@ -940,9 +940,9 @@
                     <div class="form-group">
                         <label>Product Category</label>
                         <select style="width:100%; padding:10px; border: 1px solid #ddd; border-radius: 5px;">
-                            <option>Commercial Food Packaging</option>
-                            <option>Home & Kitchen Organization</option>
-                            <option>Industrial Storage & Logistics</option>
+                            <option>Commercial Food Packaging & Catering Logistics</option>
+                            <option>Premium Home & Kitchen Organization Systems</option>
+                            <option>Industrial & Environmental Management Plastics</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -970,23 +970,23 @@
         <div class="timeline">
             <div class="timeline-step">
                 <i class="fas fa-award"></i>
-                <p>Premium Material Standards</p>
-                <small style="display:block; font-size:14px; color: #555; line-height: 1.4;">High-density, food-safe, and BPA-free polymers designed for structural integrity.</small>
+                <p>Uncompromised Quality</p>
+                <small style="display:block; font-size:14px; color: #555; line-height: 1.4;">All products meet stringent international quality and safety standards.</small>
             </div>
             <div class="timeline-step">
                 <i class="fas fa-map-marked-alt"></i>
-                <p>Strategic Local Supply Chain</p>
-                <small style="display:block; font-size:14px; color: #555; line-height: 1.4;">Based directly in Salalah to eliminate delays and guarantee supply security.</small>
+                <p>Strategic Local Inventory</p>
+                <small style="display:block; font-size:14px; color: #555; line-height: 1.4;">Robust local stock ensures immediate availability and rapid fulfillment.</small>
             </div>
             <div class="timeline-step">
                 <i class="fas fa-briefcase"></i>
-                <p>Tailored Enterprise Solutions</p>
-                <small style="display:block; font-size:14px; color: #555; line-height: 1.4;">Scalable pricing structures optimized for high-volume wholesale buyers.</small>
+                <p>Tailored Business Solutions</p>
+                <small style="display:block; font-size:14px; color: #555; line-height: 1.4;">Customized solutions and scalable pricing for all corporate and commercial needs.</small>
             </div>
         </div>
     </section>
 
-    <!-- PRIVATE LABELING -->
+    <!-- CORPORATE PRIVATE LABELING -->
     <section id="private-label" style="background: #fff;">
         <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 300px; padding: 40px; background: var(--primary-color); color: white; border-radius: 12px;">
@@ -994,10 +994,10 @@
                 <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;">
                     Engineer your brand's physical presence. Al Rasid provides end-to-end custom branding for hospitality and retail packaging.
                 </p>
-                <ul style="list-style: none; display: grid; gap: 10px;">
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Custom Design & Printing</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Multi-size Packaging Options</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Regulatory Compliance Labeling</li>
+                <ul style="list-style: none; display: grid; gap: 12px;">
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> High-Resolution Branding Application</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Market-Specific Regulatory Compliance</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Bulk Distribution Optimized Packaging</li>
                 </ul>
             </div>
             <div style="flex: 1; min-width: 300px;">
@@ -1006,9 +1006,9 @@
         </div>
     </section>
 
-    <!-- WHY CHOOSE US -->
-    <section id="why-choose-us" style="background: white;">
-        <h2 class="section-title">Why Choose Us</h2>
+    <!-- OUR COMMITMENT -->
+    <section id="our-commitment" style="background: white;">
+        <h2 class="section-title">Our Commitment to Excellence</h2>
         <div class="features-grid">
             <div class="feature-item">
                 <i class="fas fa-award"></i>
@@ -1016,14 +1016,14 @@
                 <p>Sourced from the finest global farms and manufacturers, passing strict quality control.</p>
             </div>
             <div class="feature-item">
-                <i class="fas fa-seedling"></i>
-                <h3>Diverse Portfolio</h3>
-                <p>From premium coffee and select spices to high-grade agricultural products.</p>
+                <i class="fas fa-shield-alt"></i>
+                <h3>Premium Durability</h3>
+                <p>Our plastics are engineered for longevity, resisting wear and tear in demanding environments.</p>
             </div>
             <div class="feature-item">
                 <i class="fas fa-hand-holding-usd"></i>
                 <h3>Competitive Pricing</h3>
-                <p>Premium products don't have to mean unreasonable costs. We offer unmatched market value.</p>
+                <p>Benefit from scalable pricing structures that deliver exceptional value for bulk orders.</p>
             </div>
         </div>
     </section>
@@ -1042,11 +1042,11 @@
             </div>
             <div style="flex: 1; min-width: 300px; background: var(--primary-color); padding: 40px; border-radius: 15px; color: white;">
                 <h3 style="margin-bottom: 20px;"><i class="fas fa-check-circle"></i> Our Standards</h3>
-                <ul style="list-style: none; display: grid; gap: 15px;">
-                    <li><i class="fas fa-certificate"></i> ISO Certified Quality Control</li>
-                    <li><i class="fas fa-globe"></i> Global Sourcing Network</li>
-                    <li><i class="fas fa-box"></i> Premium Bulk Packaging</li>
-                    <li><i class="fas fa-calendar-check"></i> On-time Delivery Guarantee</li>
+                <ul style="list-style: none; display: grid; gap: 12px;">
+                    <li><i class="fas fa-check-circle"></i> FDA Approved Food-Grade Materials</li>
+                    <li><i class="fas fa-check-circle"></i> ISO 22000 Certified Manufacturing</li>
+                    <li><i class="fas fa-check-circle"></i> BPA-Free & Eco-Conscious Options</li>
+                    <li><i class="fas fa-check-circle"></i> Rigorous Quality Assurance Protocols</li>
                 </ul>
             </div>
         </div>
@@ -1054,8 +1054,8 @@
 
     <!-- WHATSAPP WIDGET -->
     <a href="https://wa.me/yournumber" class="whatsapp-widget" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-        <span>Chat with our Trading Desk</span>
+        <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
+        <span>WhatsApp Sales</span>
     </a>
 
     <!-- MAIN CONTAINER -->
@@ -1066,58 +1066,20 @@
         </div>
     </div>
 
-    <!-- BULK QUOTE FORM -->
-    <section id="quote-form" style="background: #fff;">
-        <div style="max-width: 700px; margin: 0 auto; background: #f9f9f9; padding: 40px; border-radius: 15px; border: 1px solid #ddd;">
-            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 10px;">Request a Bulk Quote</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 30px;">Get specialized wholesale pricing for your business needs.</p>
-            <form onsubmit="event.preventDefault(); alert('Quote request sent! Our trading desk will contact you shortly.');">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Company Name</label>
-                        <input type="text" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Product of Interest</label>
-                    <select style="width:100%; padding:10px; border-radius:5px; border:1px solid #ddd;">
-                        <option>Coffee & Cardamom</option>
-                        <option>Spices, Herbs & Legumes</option>
-                        <option>Premium Rice & Grains</option>
-                        <option>Nuts & Dry Fruits</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Required Volume (Tons/KG)</label>
-                    <input type="text" placeholder="e.g. 50 Tons" required>
-                </div>
-                <div class="form-group">
-                    <label>Additional Requirements</label>
-                    <textarea rows="4" placeholder="Any specific origin or certification requirements?"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 16px;">Submit Inquiry</button>
-            </form>
-        </div>
-    </section>
-
     <!-- MARKET INSIGHTS -->
     <section id="market-insights" style="background: var(--bg-light);">
         <h2 class="section-title">Market Insights</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
             <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <span style="color: var(--accent-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">Technical Standards</span>
-                <h3 style="margin: 10px 0; font-size: 18px;">Commercial Food Packaging & Catering Logistics</h3>
-                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Engineered for presentation and preservation. Our tamper-evident leak-proof bowls meet strict hygienic standards.</p>
+                <span style="color: var(--accent-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">Industry Focus</span>
+                <h3 style="margin: 10px 0; font-size: 18px;">Optimizing Food Packaging for Salalah's Hospitality Sector</h3>
+                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">A deep dive into selecting the right microwave-safe and tamper-evident containers for cafes and restaurants.</p>
                 <a href="#" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Read Report <i class="fas fa-arrow-right"></i></a>
             </div>
             <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <span style="color: var(--accent-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">Enterprise Logistics</span>
-                <h3 style="margin: 10px 0; font-size: 18px;">Industrial & Environmental Management Plastics</h3>
-                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">High-impact material handling equipment, including stackable crates and commercial-grade waste systems.</p>
+                <span style="color: var(--accent-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">Product Spotlight</span>
+                <h3 style="margin: 10px 0; font-size: 18px;">The Role of Durable Plastics in Salalah's Industrial Sector</h3>
+                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Exploring heavy-duty waste bins, industrial crates, and pallets built for demanding commercial use.</p>
                 <a href="#" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Read Report <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
@@ -1166,13 +1128,12 @@
     <div class="container hidden" id="communitySection">
         <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
             <h2 style="margin: 0;">Admin Listings</h2>
-            <button class="btn btn-primary" onclick="showSellItemModal()">Add Admin Listing</button>
+            <button class="btn btn-primary" onclick="showAddProductModal()">Add New Product</button>
         </div>
         <div class="products-grid" id="communityGrid">
             <!-- Community listings will be loaded here -->
         </div>
     </div>
-
     <!-- CART SIDEBAR -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
@@ -1219,7 +1180,6 @@
             <div class="admin-section hidden" id="productsSection">
                 <h4>Manage Products</h4>
                 <p>Click "Add New Product" in the admin sidebar to add items.</p>
-                <button class="btn btn-primary" onclick="showAddProductModal()" style="width: 100%;">Add New Product</button>
                 <button class="btn btn-primary" onclick="showAddProductModal()" style="width: 100%; margin-bottom: 20px;">Add New Product</button>
                 <div id="adminProductsList"></div>
             </div>
@@ -1504,10 +1464,12 @@
                     <div class="product-info">
                         <div class="product-name">${p.name}</div>
                         <a href="#" class="spec-sheet-btn" onclick="alert('Downloading Technical Data Sheet (ISO/HACCP)...')">
-                            <i class="fas fa-file-pdf"></i> Download Data Sheet</a>
+                            <i class="fas fa-file-pdf"></i> Download Tech Sheet</a>
                         <div class="product-price">$${p.price.toFixed(2)}</div>
                         <div class="product-actions">
-                            <button class="btn btn-primary" onclick="addToCart('${p._id}')">Add to Cart</button>
+                            <button class="btn btn-primary" style="background-color: var(--accent-color);" onclick="window.open('https://wa.me/968XXXXXXXX?text=' + encodeURIComponent('Hello Al Rasid, I am interested in ' + '${p.name}' + '. Could you provide a quote?'), '_blank')">
+                                <i class="fab fa-whatsapp"></i> Inquire Now
+                            </button>
                         </div>
                     </div>`;
                 grid.appendChild(card);
@@ -1788,10 +1750,10 @@
             const adminPanel = document.getElementById('adminPanel');
             const adminOverlay = document.getElementById('adminOverlay');
             const ADMIN_PASSWORD = "1029384756";
-
-            if (!adminPanel.classList.contains('active')) {
-                const password = prompt("Enter Admin Password:");
-                if (password === ADMIN_PASSWORD) {
+            
+            // Admin access is now based on user role, not a password prompt
+            if (currentUser && currentUser.role === 'admin') {
+                if (!adminPanel.classList.contains('active')) {
                     adminPanel.classList.add('active');
                     adminOverlay.classList.add('active');
                     // Reveal Selling features when password is correct
@@ -1799,8 +1761,8 @@
                     document.getElementById('communitySection').classList.remove('hidden');
                     loadOrders(); // Fetch fresh data
                     showAdminSection('orders'); // Jump straight to orders
-                } else if (password !== null) {
-                    alert("Incorrect Password!");
+                } else { // If already active, close it
+                    adminPanel.classList.remove('active');
                 }
             } else {
                 adminPanel.classList.remove('active');
@@ -1825,18 +1787,11 @@
         function updateUIForAuth() {
             const accountBtnText = document.getElementById('accountButtonText');
             const sellBtn = document.getElementById('sellNavBtn');
-            const communitySection = document.getElementById('communitySection');
 
             if (currentUser) {
                 accountBtnText.textContent = currentUser.username;
-                if (currentUser.role === 'admin') {
-                    sellBtn.classList.remove('hidden');
-                    communitySection.classList.remove('hidden');
-                }
             } else {
                 accountBtnText.textContent = 'Sign In';
-                sellBtn.classList.add('hidden');
-                communitySection.classList.add('hidden');
             }
         }
 
@@ -1887,7 +1842,7 @@
         }
 
         function renderOrders() {
-            const ordersList = document.getElementById('ordersList');
+            const ordersList = document.getElementById('ordersList') || document.getElementById('userOrderHistory');
             if (!ordersList) return;
 
             if (orders.length === 0) {
@@ -1896,7 +1851,10 @@
             }
 
             ordersList.innerHTML = orders.map(order => {
-                const itemsHtml = order.items.map(item => `
+                // Filter orders for current user if not admin
+                if (currentUser && currentUser.role !== 'admin' && order.userId !== currentUser._id) return '';
+
+                const itemsHtml = order.items.map(item => {
                     <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.2); padding: 5px 0;">
                         <span>${item.name} x${item.quantity}</span>
                         <span>$${(item.price * item.quantity).toFixed(2)}</span>
@@ -1931,6 +1889,7 @@
                     </div>
                 `;
             }).join('');
+            if (ordersList.innerHTML.trim() === '') ordersList.innerHTML = '<p style="text-align: center; color: #999;">No orders found.</p>';
         }
 
         function updateDashboard() {
@@ -1940,8 +1899,6 @@
             }
         }
 
-        // COMMUNITY SELLER FEATURES
-        let communityItems = [];
 
         function fileToBase64(file) {
             return new Promise((resolve, reject) => {
@@ -1954,8 +1911,7 @@
 
         async function addSellItem(event) {
             event.preventDefault();
-            const name = document.getElementById('sellItemName').value.trim();
-            const category = document.getElementById('sellItemCategory').value.trim();
+            // This function is no longer used for general users, only admin adds products
             const fileInput = document.getElementById('sellItemFile');
             
             let imageData = null;
@@ -1963,13 +1919,13 @@
                 imageData = await fileToBase64(fileInput.files[0]);
             }
 
-                const descriptionInput = document.getElementById('sellItemDescription').value.trim();
-                const description = descriptionInput || generateSellDescription(name, category);
+            const descriptionInput = document.getElementById('sellItemDescription').value.trim();
+            const description = descriptionInput || 'A premium plastic product.'; // Simplified default description
 
                 const newItemData = {
-                    name,
+                    name: document.getElementById('sellItemName').value.trim(),
                     price: parseFloat(document.getElementById('sellItemPrice').value),
-                    category,
+                    category: document.getElementById('sellItemCategory').value.trim(),
                     image: imageData,
                     emoji: '📦', // Default fallback
                     description,
@@ -1998,92 +1954,8 @@
             } catch (err) { alert('Error adding item: ' + err.message); }
         }
 
-        function loadCommunityItems() {
-            const communityGrid = document.getElementById('communityGrid');
-            communityGrid.innerHTML = '';
-
-            if (communityItems.length === 0) {
-                communityGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;">No community items available yet.</p>';
-                return;
-            }
-
-            products.filter(p => p.seller !== 'Admin').forEach(item => { // Filter for community items
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                const imageHtml = item.image ? `<img src="${item.image}" alt="${item.name}">` : (item.emoji || '📦');
-                card.innerHTML = `
-                    <div class="product-image">${imageHtml}</div>
-                    <div class="product-info">
-                        <div class="product-name">${item.name}</div>
-                        <div class="product-price">$${item.price.toFixed(2)}</div>
-                        <div class="product-rating" style="font-size: 12px; color: #666; margin-bottom: 8px;">Seller: ${item.seller}</div>
-                        <div class="product-actions">
-                            <button class="btn btn-primary" onclick="addCommunityItemToCart(${item.id})">Add to Cart</button>
-                            <button class="btn btn-secondary" onclick="showCommunityItemDetails(${item.id})">
-                            </button>
-                            <button class="btn btn-secondary" onclick="showProductModal('${item._id}')"><i class="fas fa-eye"></i></button>
-                        </div>
-                    </div>
-                `;
-                communityGrid.appendChild(card);
-            });
-        }
-
-        function addCommunityItemToCart(itemId) {
-            const item = products.find(i => i._id === itemId); // Find from all products
-            if (!item) return;
-
-            const cartItem = cart.find(cartItem => cartItem.id === itemId);
-            if (cartItem) {
-                cartItem.quantity++;
-            } else {
-                cart.push({ ...item, quantity: 1 });
-            }
-            updateCart();
-            showNotification('Added community item to cart!');
-        }
-
-        function showCommunityItemDetails(itemId) {
-            const item = products.find(i => i._id === itemId); // Find from all products
-            if (!item) return;
-            currentProductModal = item;
-            const body = document.getElementById('productModalBody');
-            body.innerHTML = `
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <div style="font-size: 80px;">${item.emoji || '📦'}</div>
-                </div>
-                <h2 style="color: #1a472a; margin-bottom: 10px;">${item.name}</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                    <div>
-                        <strong>Price:</strong><br>
-                        <span style="font-size: 24px; color: #B12704; font-weight: bold;">$${item.price.toFixed(2)}</span>
-                    </div>
-                    <div>
-                        <strong>Seller:</strong><br>
-                        <span>${item.seller}</span>
-                    </div>
-                </div>
-                <p style="color: #666; line-height: 1.6; margin-bottom: 15px;">${item.description}</p>
-            `;
-            document.getElementById('productModal').classList.add('active');
-        }
-
-        function scrollToCommunity() {
-            document.getElementById('communitySection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function generateSellDescription(name, category) {
-            const useCases = {
-                'Accessories': 'Perfect as a stylish everyday accessory that adds convenience to your routine.',
-                'Sports': 'Ideal for active people and outdoor adventures, built for performance.',
-                'Electronics': 'Great for staying connected, boosting productivity, and enjoying media.',
-                'Home & Office': 'A smart choice for home comfort and office productivity.',
-                'Photography': 'Designed to help you capture clear, memorable photos and videos.',
-                'Storage': 'A useful item for keeping your devices and data organized and safe.'
-            };
-            const descriptionBase = `This ${category.toLowerCase()} item is a great choice for anyone looking for ${name.toLowerCase()} quality and value.`;
-            const extra = useCases[category] || 'A reliable product with practical use in everyday life.';
-            return `${descriptionBase} ${extra}`;
+        function closeSellItemModal() {
+            document.getElementById('sellItemModal').classList.remove('active');
         }
 
 
@@ -2095,7 +1967,7 @@
             document.getElementById('accountName').textContent = currentUser.username;
             document.getElementById('accountEmail').textContent = currentUser.role === 'admin' ? 'Administrator' : 'Customer';
             document.getElementById('accountStatus').textContent = 'Active';
-            document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('totalOrders').textContent = orders.filter(o => o.userId === currentUser._id).length; // Show user's orders
             document.getElementById('itemsListed').textContent = products.length;
             document.getElementById('accountModal').classList.add('active');
         }
@@ -2136,7 +2008,7 @@
             const list = document.getElementById('adminProductsList');
             if (!list) return;
             
-            try {
+            try { // Fetch all products for admin view
                 const response = await fetch(`${API_URL}/items`);
                 const items = await response.json();
                 products = items; 
@@ -2279,6 +2151,13 @@
                 }
             } catch (err) { alert('Error adding product: ' + err.message); }
         }
+
+        function getAuthHeader() {
+            const token = localStorage.getItem('token');
+            return token ? { 'Authorization': `Bearer ${token}` } : {};
+        }
+
+
 
         // NOTIFICATIONS
         function showNotification(message) {

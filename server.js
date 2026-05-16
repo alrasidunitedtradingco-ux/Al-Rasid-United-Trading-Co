@@ -69,6 +69,24 @@ const orderSchema = new mongoose.Schema({
 
 const Order = mongoose.model('Order', orderSchema);
 
+// Auth Middleware
+const auth = async (req, res, next) => {
+    try {
+        const token = req.header('Authorization').replace('Bearer ', '');
+        if (!process.env.JWT_SECRET) {
+            throw new Error('JWT_SECRET is not defined in environment variables.');
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.id);
+        if (!user) throw new new Error();
+        req.user = user;
+        req.token = token;
+        next();
+    } catch (e) {
+        res.status(401).send({ error: 'Please authenticate.' });
+    }
+};
+
 // 4. ROUTES
 
 // Auth Routes
@@ -90,7 +108,9 @@ app.post('/api/auth/login', async (req, res) => {
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(401).send({ error: 'Invalid credentials' });
         }
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'secret');
+        if (!process.env.JWT_SECRET) {
+            throw new Error('JWT_SECRET is not defined in environment variables.');
+        }        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         res.send({ token, user: { _id: user._id, username: user.username, role: user.role } });
     } catch (e) { res.status(500).send(e); }
 });
@@ -98,7 +118,9 @@ app.post('/api/auth/login', async (req, res) => {
 app.get('/api/auth/me', async (req, res) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+        if (!process.env.JWT_SECRET) {
+            throw new Error('JWT_SECRET is not defined in environment variables.');
+        }        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.id);
         if (!user) throw new Error();
         res.send({ _id: user._id, username: user.username, role: user.role });
@@ -112,9 +134,13 @@ app.get('/api/items', async (req, res) => {
 });
 
 // Add Shop Item (Admin Only)
-app.post('/api/items', async (req, res) => {
+app.post('/api/items', auth, async (req, res) => {
     try {
-        const item = new Item(req.body);
+        if (req.user.role !== 'admin') {
+            return res.status(403).send({ error: 'Access denied. Only admins can add items.' });
+        }
+        // Assign seller from the authenticated user
+        const item = new Item({ ...req.body, seller: req.user.username });
         await item.save();
         res.status(201).send(item);
     } catch (e) {
@@ -123,8 +149,11 @@ app.post('/api/items', async (req, res) => {
 });
 
 // Place Order (Authenticated Customers)
-app.put('/api/items/:id', async (req, res) => {
+app.put('/api/items/:id', auth, async (req, res) => {
     try {
+        if (req.user.role !== 'admin') {
+            return res.status(403).send({ error: 'Access denied. Only admins can update items.' });
+        }
         const item = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!item) return res.status(404).send({ error: 'Item not found' });
         res.send(item);
@@ -133,8 +162,11 @@ app.put('/api/items/:id', async (req, res) => {
     }
 });
 
-app.delete('/api/items/:id', async (req, res) => {
+app.delete('/api/items/:id', auth, async (req, res) => {
     try {
+        if (req.user.role !== 'admin') {
+            return res.status(403).send({ error: 'Access denied. Only admins can delete items.' });
+        }
         const item = await Item.findByIdAndDelete(req.params.id);
         if (!item) return res.status(404).send({ error: 'Item not found' });
         res.send(item);
@@ -154,8 +186,11 @@ app.post('/api/orders', async (req, res) => {
 });
 
 // Get Order History (Sync across devices)
-app.get('/api/orders', async (req, res) => {
+app.get('/api/orders', auth, async (req, res) => {
     try {
+        if (req.user.role !== 'admin') {
+            return res.status(403).send({ error: 'Access denied. Only admins can view all orders.' });
+        }
         const orders = await Order.find({});
         res.send(orders);
     } catch (e) {
