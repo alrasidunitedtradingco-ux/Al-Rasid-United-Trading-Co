@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al Rasid United Trading Co | Premium Global Commodity Trading</title>
+    <title>Al Rasid United Trading Co | Global Commodity Authority</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1a472a;
-            --primary-light: #2d5a3d;
-            --accent-color: #ff9900;
-            --accent-hover: #e68a00;
+            --primary-color: #064e3b; /* Deep Emerald Green */
+            --primary-light: #065f46;
+            --accent-color: #c29a5b;  /* Warm Gold */
+            --accent-hover: #a6824a;
             --price-color: #B12704;
             --link-hover: #1aad96;
             --assistant-bg: #e8f0e8;
+            --bg-light: #f8fafc;
         }
 
         * {
@@ -23,9 +25,13 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #ffffff;
             color: #333;
+        }
+
+        h1, h2, h3, .section-title {
+            font-family: 'Playfair Display', serif;
         }
 
         /* HEADER */
@@ -131,6 +137,29 @@
         body {
             top: 0px !important;
         }
+
+        /* B2B CALCULATOR */
+        .calculator-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid var(--accent-color);
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            position: relative;
+        }
+        .timeline-step { text-align: center; flex: 1; position: relative; }
+        .timeline-step i { font-size: 24px; color: var(--accent-color); margin-bottom: 10px; }
+        .timeline-step p { font-weight: 600; font-size: 14px; }
 
         /* NEW SECTIONS STYLING */
         section {
@@ -300,6 +329,10 @@
             display: flex;
             gap: 8px;
             margin-top: auto;
+        }
+        
+        .spec-sheet-btn {
+            font-size: 11px; color: var(--primary-color); text-decoration: none; display: block; margin-bottom: 10px;
         }
 
         .btn {
@@ -822,11 +855,15 @@
                     <i class="fas fa-cog"></i>
                     <span>Admin</span>
                 </button>
+                <button onclick="window.open('https://www.maersk.com/tracking', '_blank')">
+                    <i class="fas fa-ship"></i>
+                    <span>Track Shipment</span>
+                </button>
                 <a href="#about-us">
                     <i class="fas fa-info-circle"></i>
                     <span>About Us</span>
                 </a>
-                <button onclick="showSellItemModal()" id="sellNavBtn">
+                <button onclick="showSellItemModal()" id="sellNavBtn" class="hidden">
                     <i class="fas fa-tags"></i>
                     <span>Sell Item</span>
                 </button>
@@ -850,17 +887,105 @@
 
     <!-- BANNER -->
     <div class="banner">
-        <h1>Premium Global Trading, Delivered with Integrity.</h1>
-        <p>Al Rasid United Trading Co. connects the world’s finest agricultural crops, spices, and premium commodities directly to your business.</p>
+        <h1>Your Trusted Global Supply Chain Partner.</h1>
+        <p>Sourcing, packaging, and delivering premium agricultural products worldwide with uncompromised integrity.</p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <button class="btn btn-primary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px;" onclick="document.getElementById('products-section').scrollIntoView()">
+            <button class="btn btn-primary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background-color: var(--accent-color);" onclick="document.getElementById('products-section').scrollIntoView()">
                 Explore Our Products
             </button>
-            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background: white;" onclick="document.getElementById('quote-form').scrollIntoView()">
+            <button class="btn btn-secondary" style="padding: 15px 40px; font-size: 18px; border-radius: 5px; background: rgba(255,255,255,0.1); color: white; border: 1px solid white;" onclick="document.getElementById('calculator-section').scrollIntoView()">
                 Request a Quote
             </button>
         </div>
     </div>
+
+    <!-- BUILD YOUR ORDER CALCULATOR -->
+    <div class="container" id="calculator-section">
+        <div class="calculator-card">
+            <h2 style="margin-bottom: 25px; color: var(--primary-color);">Interactive Quote Builder</h2>
+            <form onsubmit="event.preventDefault(); alert('Your detailed CIF/FOB quote request has been sent to our Trading Desk.');">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div class="form-group">
+                        <label>Commodity Selection</label>
+                        <select style="width:100%; padding:10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option>1121 Basmati Sella Rice</option>
+                            <option>Premium Green Cardamom (8mm)</option>
+                            <option>Ethiopian Arabica Coffee Beans</option>
+                            <option>Vietnamese Black Pepper</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Target Quantity</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="number" placeholder="Value" style="flex: 2;">
+                            <select style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                                <option>Metric Tons</option>
+                                <option>Kilograms</option>
+                                <option>FCL (Full Container)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Packaging Preference</label>
+                        <select style="width:100%; padding:10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option>Standard Jute Bags (50KG)</option>
+                            <option>PP Woven Bags (25KG)</option>
+                            <option>Private Label / Custom Branding</option>
+                            <option>Bulk Liner / Jumbo Bags</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 20px; width: 250px; background-color: var(--primary-color);">Request CIF/FOB Quote</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SOURCE TO PORT TIMELINE -->
+    <section id="timeline-section" style="background: var(--bg-light);">
+        <h2 class="section-title">From Source to Port: Our Commitment</h2>
+        <div class="timeline">
+            <div class="timeline-step">
+                <i class="fas fa-leaf"></i>
+                <p>Ethical Sourcing</p>
+            </div>
+            <div class="timeline-step">
+                <i class="fas fa-microscope"></i>
+                <p>Strict Inspection</p>
+            </div>
+            <div class="timeline-step">
+                <i class="fas fa-box-open"></i>
+                <p>Premium Packaging</p>
+            </div>
+            <div class="timeline-step">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <p>Customs Clearance</p>
+            </div>
+            <div class="timeline-step">
+                <i class="fas fa-anchor"></i>
+                <p>Global Export</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRIVATE LABELING -->
+    <section id="private-label" style="background: #fff;">
+        <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px; padding: 40px; background: var(--primary-color); color: white; border-radius: 12px;">
+                <h2 style="color: var(--accent-color); margin-bottom: 20px;">Private Label Solutions</h2>
+                <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;">
+                    Al Rasid provides end-to-end private labeling services. We pack our premium commodities under your own brand name, retail-ready for your local market.
+                </p>
+                <ul style="list-style: none; display: grid; gap: 10px;">
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Custom Bag Design & Printing</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Multi-size Packaging Options</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color);"></i> Market-specific Regulatory Labeling</li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&q=80&w=800" alt="Private Labeling" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </section>
 
     <!-- WHY CHOOSE US -->
     <section id="why-choose-us" style="background: white;">
@@ -909,6 +1034,35 @@
                     <li><i class="fas fa-box"></i> Premium Bulk Packaging</li>
                     <li><i class="fas fa-calendar-check"></i> On-time Delivery Guarantee</li>
                 </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEET THE TRADING DESK -->
+    <section id="trading-desk" style="background: var(--bg-light);">
+        <h2 class="section-title">Meet the Trading Desk</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+            <div style="text-align: center;">
+                <div style="width: 120px; height: 120px; background: #ddd; border-radius: 50%; margin: 0 auto 15px; overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <h4 style="margin-bottom: 5px;">Ahmed Al-Rasid</h4>
+                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Lead Commodity Trader</p>
+                <div style="display: flex; justify-content: center; gap: 10px; color: var(--primary-color);">
+                    <i class="fab fa-whatsapp"></i>
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <div style="width: 120px; height: 120px; background: #ddd; border-radius: 50%; margin: 0 auto 15px; overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <h4 style="margin-bottom: 5px;">Sarah Jenkins</h4>
+                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Logistics & Compliance</p>
+                <div style="display: flex; justify-content: center; gap: 10px; color: var(--primary-color);">
+                    <i class="fab fa-whatsapp"></i>
+                    <i class="fas fa-envelope"></i>
+                </div>
             </div>
         </div>
     </section>
@@ -962,6 +1116,47 @@
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 16px;">Submit Inquiry</button>
             </form>
+        </div>
+    </section>
+
+    <!-- MARKET INSIGHTS -->
+    <section id="market-insights" style="background: var(--bg-light);">
+        <h2 class="section-title">Market Insights</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <span style="color: var(--accent-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">June 2026</span>
+                <h3 style="margin: 10px 0; font-size: 18px;">Global Rice Market Trends: What Importers Need to Know</h3>
+                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Analysis of the latest yield reports from South East Asia and price projections...</p>
+                <a href="#" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Read Report <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <span style="color: var(--accent-color); font-size: 12px; font-weight: bold; text-transform: uppercase;">May 2026</span>
+                <h3 style="margin: 10px 0; font-size: 18px;">Evaluating Quality in Premium Cardamom Shipments</h3>
+                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">A technical guide for procurement managers on evaluating pod size and color density...</p>
+                <a href="#" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Read Report <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" style="background: #fff; padding: 40px 30px; border-top: 1px solid #eee;">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 60px; flex-wrap: wrap; opacity: 0.6;">
+            <div style="text-align: center;">
+                <i class="fas fa-certificate" style="font-size: 30px; display: block; margin-bottom: 8px; color: var(--primary-color);"></i>
+                <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">ISO 9001:2015</span>
+            </div>
+            <div style="text-align: center;">
+                <i class="fas fa-shield-halved" style="font-size: 30px; display: block; margin-bottom: 8px; color: var(--primary-color);"></i>
+                <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">HACCP Certified</span>
+            </div>
+            <div style="text-align: center;">
+                <i class="fas fa-file-contract" style="font-size: 30px; display: block; margin-bottom: 8px; color: var(--primary-color);"></i>
+                <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Halal Compliant</span>
+            </div>
+            <div style="text-align: center;">
+                <i class="fas fa-leaf" style="font-size: 30px; display: block; margin-bottom: 8px; color: var(--primary-color);"></i>
+                <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Organic Certified</span>
+            </div>
         </div>
     </section>
 
@@ -1321,6 +1516,7 @@
                     <div class="product-image" onclick="showProductModal('${p._id}')">${imageHtml}</div>
                     <div class="product-info">
                         <div class="product-name">${p.name}</div>
+                        <a href="#" class="spec-sheet-btn" onclick="alert('Downloading Tech Spec PDF...')"><i class="fas fa-file-pdf"></i> Download Spec Sheet</a>
                         <div class="product-price">$${p.price.toFixed(2)}</div>
                         <div class="product-actions">
                             <button class="btn btn-primary" onclick="addToCart('${p._id}')">Add to Cart</button>
