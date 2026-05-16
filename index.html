@@ -891,7 +891,7 @@
                     <i class="fas fa-info-circle"></i>
                     <span>About Us</span>
                 </a>
-                <button id="accountButton" onclick="showAccountModal()">
+                <button id="accountButton" onclick="showAccountModal()"> 
                     <i class="fas fa-user"></i>
                     <span id="accountButtonText">Account</span>
                 </button>
@@ -1790,11 +1790,16 @@
 
             if (currentUser) {
                 accountBtnText.textContent = currentUser.username;
+                if (currentUser.role === 'admin') {
+                    sellBtn.classList.remove('hidden');
+                } else {
+                    sellBtn.classList.add('hidden');
+                }
             } else {
                 accountBtnText.textContent = 'Sign In';
+                sellBtn.classList.add('hidden');
             }
         }
-
         async function completeCheckout(event) {
             event.preventDefault();
             
