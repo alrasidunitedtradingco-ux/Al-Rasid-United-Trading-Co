@@ -1747,22 +1747,25 @@
             const adminOverlay = document.getElementById('adminOverlay');
             const ADMIN_PASSWORD = "1029384756";
             
-            // Admin access is now based on user role, not a password prompt
-            if (currentUser && currentUser.role === 'admin') {
-                if (!adminPanel.classList.contains('active')) {
-                    adminPanel.classList.add('active');
-                    adminOverlay.classList.add('active');
-                    // Reveal Selling features when password is correct
-                    document.getElementById('sellNavBtn').classList.remove('hidden');
-                    document.getElementById('communitySection').classList.remove('hidden');
-                    loadOrders(); // Fetch fresh data
-                    showAdminSection('orders'); // Jump straight to orders
-                } else { // If already active, close it
-                    adminPanel.classList.remove('active');
-                }
-            } else {
+            // If the panel is already open, close it
+            if (adminPanel.classList.contains('active')) {
                 adminPanel.classList.remove('active');
                 adminOverlay.classList.remove('active');
+                return;
+            }
+
+            // Check admin role or use the hardcoded password as a fallback
+            const isAuthorized = (currentUser && currentUser.role === 'admin') || (prompt("Enter Admin Password to access panel:") === ADMIN_PASSWORD);
+
+            if (isAuthorized) {
+                adminPanel.classList.add('active');
+                adminOverlay.classList.add('active');
+                document.getElementById('sellNavBtn').classList.remove('hidden');
+                document.getElementById('communitySection').classList.remove('hidden');
+                loadOrders(); 
+                showAdminSection('orders'); 
+            } else {
+                alert("Access Denied: Administrator privileges required.");
             }
         }
 
