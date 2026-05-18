@@ -2200,16 +2200,67 @@
 
         function generateAssistantResponse(text) {
             const lower = text.toLowerCase();
+
+            // 1. Greetings
+            if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
+                return 'Hello there! How can I assist you today?';
+            }
+
+            // 2. Product Search
+            if (lower.includes('product') || lower.includes('item') || lower.includes('find') || lower.includes('look for') || lower.includes('show me')) {
+                const matchingProducts = products.filter(p =>
+                    p.name.toLowerCase().includes(lower) ||
+                    p.category.toLowerCase().includes(lower) ||
+                    (p.description && p.description.toLowerCase().includes(lower))
+                );
+
+                if (matchingProducts.length > 0) {
+                    if (matchingProducts.length === 1) {
+                        const p = matchingProducts[0];
+                        return `I found "${p.name}" in the "${p.category}" category, priced at $${p.price.toFixed(2)}. It has ${p.stock} units in stock.`;
+                    } else if (matchingProducts.length <= 3) {
+                        const productNames = matchingProducts.map(p => `"${p.name}" ($${p.price.toFixed(2)})`).join(', ');
+                        return `I found a few products: ${productNames}. Which one are you interested in?`;
+                    } else {
+                        return `I found ${matchingProducts.length} products matching your query. Try being more specific or browse our categories.`;
+                    }
+                } else {
+                    return `I couldn't find any products matching "${text}". Would you like to try a different search or browse our categories?`;
+                }
+            }
+
+            // 3. Categories
+            if (lower.includes('categories') || lower.includes('what do you sell') || lower.includes('types of products')) {
+                const uniqueCategories = [...new Set(products.map(p => p.category))];
+                if (uniqueCategories.length > 0) {
+                    return `We offer products in categories like: ${uniqueCategories.join(', ')}. You can click on the categories bar above to filter.`;
+                } else {
+                    return 'We have a wide range of products! Please check the categories section above.';
+                }
+            }
+
+            // 4. General Help (existing logic, with improvements)
             if (lower.includes('sell') || lower.includes('listing')) {
-                return 'To sell an item, click Sell Item or open the Listings section and add your product.';
+                return 'To sell an item, click "Sell Item" in the header. Note that this feature is primarily for authorized users or admins.';
             }
             if (lower.includes('cart') || lower.includes('buy') || lower.includes('checkout')) {
-                return 'Your cart is on the top right. Click Cart to review items, then proceed to checkout.';
+                return 'Your shopping cart is accessible via the cart icon at the top right. Click it to review items and proceed to checkout.';
             }
             if (lower.includes('search') || lower.includes('find')) {
-                return 'Use the search box at the top to find products by name or category.';
+                return 'You can use the search bar at the top of the page to find products by name or category.';
             }
-            return 'I am your Copilot. Ask me about products, selling, checkout, or where to find things.';
+            if (lower.includes('admin')) {
+                return 'The Admin Panel is for authorized users to manage products and orders. Click the "Admin" button if you have credentials.';
+            }
+            if (lower.includes('rfp') || lower.includes('corporate quote')) {
+                return 'You can request a corporate quote through our Request for Proposal (RFP) Portal, located just below the main banner.';
+            }
+            if (lower.includes('about us')) {
+                return 'You can find more information about us in the "About Us" section, which details our mission and standards.';
+            }
+
+            // 5. Fallback
+            return 'I am your Copilot. I can help you find products, understand categories, or guide you through selling and checkout processes. What would you like to know?';
         }
     </script>
 </body>
