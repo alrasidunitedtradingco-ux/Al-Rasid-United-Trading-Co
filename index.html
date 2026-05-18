@@ -1434,27 +1434,50 @@
         // Initialize app on load
         window.addEventListener('load', () => {
             checkAuth();
-            loadProducts();
+            loadProductsAndRender(); // Load all products and render the initial view
         });
 
-        async function loadProducts(category = 'all') {
+        // Global variable to hold ALL products fetched from the API
+        let products = [];
+        // Global variables to keep track of current filters for the main product grid
+        let currentCategoryFilter = 'all';
+        let currentSearchKeyword = '';
+
+        async function loadProductsAndRender() {
             try {
                 const response = await fetch(`${API_URL}/items`);
-                products = await response.json();
-                renderProducts(category);
-                if (category === 'all') {
-                    const bar = document.getElementById('categoriesBar');
-                    bar.innerHTML = '<a href="#" class="active" onclick="filterByCategory(\'all\')">All Products</a>';
-                    loadCategories();
-                }
-            } catch (err) { console.error('Error loading products:', err); }
+                products = await response.json(); // Load ALL products into the global 'products' array
+                renderProducts(); // Render with default filters (all category, no search)
+                loadCategories(); // Load categories from the full 'products' list
+            } catch (err) { console.error('Error loading products and rendering:', err); }
         }
 
-        function renderProducts(category = 'all') {
+        function renderProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
-            const items = category === 'all' ? products : products.filter(p => p.category === category);
-            items.forEach(p => {
+
+            let productsToDisplay = products; // Start with all products
+
+            // Apply category filter
+            if (currentCategoryFilter !== 'all') {
+                productsToDisplay = productsToDisplay.filter(p => p.category === currentCategoryFilter);
+            }
+
+            // Apply search keyword filter
+            if (currentSearchKeyword) {
+                const lowerQuery = currentSearchKeyword.toLowerCase();
+                productsToDisplay = productsToDisplay.filter(p =>
+                    p.name.toLowerCase().includes(lowerQuery) ||
+                    (p.description && p.description.toLowerCase().includes(lowerQuery))
+                );
+            }
+            
+            if (productsToDisplay.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;">No products found</p>';
+                return;
+            }
+
+            productsToDisplay.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 const imageHtml = p.image ? `<img src="${p.image}" alt="${p.name}">` : p.emoji;
@@ -1472,10 +1495,6 @@
                 grid.appendChild(card);
             });
         }
-
-        // DATA
-        let products = [];
-        let cart = [];
         let orders = [];
         let currentProductModal = null;
 
@@ -1577,7 +1596,7 @@
 
         // CART MANAGEMENT
         function addToCart(productId) {
-            const product = products.find(p => p._id === productId);
+            const product = products.find(p => p._id === productId); // Use the global 'products' array
             const cartItem = cart.find(item => item._id === productId);
             
             if (cartItem) {
@@ -1592,7 +1611,7 @@
 
         function addToCartFromModal() {
             if (currentProductModal) {
-                const item = products.find(p => p._id === currentProductModal._id);
+                const item = products.find(p => p._id === currentProductModal._id); // Use the global 'products' array
                 if (item) {
                     addItemToCart(item);
                 }
@@ -1953,8 +1972,8 @@
                 if (response.ok) {
                     showNotification('Your item is now listed for sale!');
                     closeSellItemModal();
-                    event.target.reset();
-                    loadProducts(); // Reload all products including new community item
+                    event.target.reset(); // Clear the form
+                    loadProductsAndRender(); // Reload all products and re-render the main grid
                 } else {
                     alert('Failed to add item: ' + (await response.json()).error);
                 }
@@ -1975,7 +1994,7 @@
             document.getElementById('accountEmail').textContent = currentUser.role === 'admin' ? 'Administrator' : 'Customer';
             document.getElementById('accountStatus').textContent = 'Active';
             document.getElementById('totalOrders').textContent = orders.filter(o => o.userId === currentUser._id).length; // Show user's orders
-            document.getElementById('itemsListed').textContent = products.length;
+            document.getElementById('itemsListed').textContent = products.length; // Total products in the system
             document.getElementById('accountModal').classList.add('active');
         }
 
@@ -2017,8 +2036,7 @@
             
             try { // Fetch all products for admin view
                 const response = await fetch(`${API_URL}/items`);
-                const items = await response.json();
-                products = items; 
+                products = await response.json(); // Update the global 'products' array
                 
                 if (items.length === 0) {
                     list.innerHTML = '<p style="padding: 20px; opacity: 0.6; text-align: center;">No products listed yet.</p>';
@@ -2047,6 +2065,7 @@
                     </div>
                 `).join('');
             } catch (err) { console.error(err); }
+            renderProducts(); // Re-render the main product grid after admin product changes
         }
 
         function openEditProductModal(productId) {
@@ -2091,8 +2110,8 @@
                 if (response.ok) {
                     showNotification('✓ Product updated!');
                     closeEditProductModal();
-                    loadAdminProducts();
-                    if (typeof loadProducts === 'function') loadProducts(); 
+                    loadAdminProducts(); // Refresh admin product list
+                    loadProductsAndRender(); // Refresh main product grid
                 }
             } catch (err) { alert('Update failed'); }
         }
@@ -2111,7 +2130,7 @@
                 if (response.ok) {
                     showNotification('✓ Product deleted');
                     loadAdminProducts();
-                    if (typeof loadProducts === 'function') loadProducts();
+                    loadProductsAndRender(); // Refresh main product grid
                 }
             } catch (err) { alert('Delete failed'); }
         }
@@ -2150,8 +2169,8 @@
                 if (response.ok) {
                     showNotification('Product added successfully!');
                     closeAddProductModal();
-                    event.target.reset();
-                    loadProducts(); // Reload all products
+                    event.target.reset(); // Clear the form
+                    loadProductsAndRender(); // Reload all products and re-render main grid
                     loadAdminProducts();
                 } else {
                     alert('Failed to add product: ' + (await response.json()).error);
@@ -2215,7 +2234,7 @@
 
             // 2. Product Search
             if (lower.includes('product') || lower.includes('item') || lower.includes('find') || lower.includes('look for') || lower.includes('show me')) {
-                const matchingProducts = products.filter(p =>
+                const matchingProducts = products.filter(p => // Now searches the full 'products' array
                     p.name.toLowerCase().includes(lower) ||
                     p.category.toLowerCase().includes(lower) ||
                     (p.description && p.description.toLowerCase().includes(lower))
@@ -2238,7 +2257,7 @@
 
             // 3. Categories
             if (lower.includes('categories') || lower.includes('what do you sell') || lower.includes('types of products')) {
-                const uniqueCategories = [...new Set(products.map(p => p.category))];
+                const uniqueCategories = [...new Set(products.map(p => p.category))]; // Uses the full 'products' array
                 if (uniqueCategories.length > 0) {
                     return `We offer products in categories like: ${uniqueCategories.join(', ')}. You can click on the categories bar above to filter.`;
                 } else {
